@@ -1,5 +1,7 @@
 package servlets;
 
+import engine.GamesManager;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,10 +11,10 @@ import java.io.IOException;
 
 @WebServlet(
         name = "GameServlet",
-        urlPatterns = {"/gameServlet"}
+        urlPatterns = {"/GameServlet"}
 )
-public class GameServlet extends HttpServlet
-{
+public class GameServlet extends HttpServlet {
+    GamesManager gamesManager = GamesManager.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("TEST");
@@ -21,5 +23,10 @@ public class GameServlet extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("TEST");
+        try {
+            gamesManager.addGame(req.getParameter("file"),"OMER");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,11 +4,21 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UsersLogic {
-    private final Set<String> usersSet;
+public class UsersManager {
+    private static UsersManager usersManagerInstance = null;
+    private static int numOfUsers;
+    private final HashSet<String> usersSet;
 
-    public UsersLogic() {
+    private UsersManager() {
+
         usersSet = new HashSet<>();
+    }
+    
+    public static UsersManager getInstance(){
+        if(usersManagerInstance == null){
+            usersManagerInstance = new UsersManager();
+        }
+        return usersManagerInstance;
     }
 
     public synchronized void addUser(String username) {

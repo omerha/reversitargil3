@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Reversi.xsd">
+  <GameType>Basic</GameType>
+  <Game>
+    <Board rows="25" columns="25" />
+    <Variant>Islands</Variant>
+    <InitialPositions>
+      <Participant number="1">
+        <Position row="4" column="4" />
+      </Participant>
+      <Participant number="2">
+        <Position row="4" column="2" />
+        <Position row="3" column="3" />
+      </Participant>
+    </InitialPositions>
+  </Game>
+</GameDescriptor>

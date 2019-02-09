@@ -26,26 +26,29 @@ $(function () {
     //
     // });
 });
-    function loadGameClicked(event) {
-        var file = event.target.files[0];
-        var reader = new FileReader();
-        //   var creatorName = getUserName();
 
-        reader.onload = function () {
-            var content = reader.result;
-            $.ajax(
-                {
-                    type: 'POST',
-                    url: '/gameServlet',
-                    data: content,
-                    error: function () {
-                        console.error("Failed to submit");
-                        console.log("fail");
-                    },
-                    success: function (r) {
-                        console.log("Success");
-                    }
+function loadGameClicked(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    //   var creatorName = getUserName();
+    reader.readAsText(file);
+    reader.onload = function () {
+        console.log("Reader on load");
+        var content = reader.result;
+
+        $.ajax(
+            {
+                type: 'POST',
+                url: '/gameServlet',
+                data:{ file:content},
+                error: function () {
+                    console.error("Failed to submit");
+                    console.log("fail");
+                },
+                success: function (r) {
+                    console.log("Success");
                 }
-            );
-        };
-    }
+            }
+        );
+    };
+}
