@@ -1,11 +1,13 @@
 $(function () { // onload...do
+    checkIfUserLoggedIn();
     $("#loginForm").submit(function () {
 
-        var parameters = $(this).serialize();
-
+        var userName = $('.UserNameInput').val();
+        var computerFlag = $('.ComputerCheckBox').is(':checked');
 
         $.ajax({
-            data: parameters,
+            data: {action:"login",userName:userName,computerFlag:computerFlag},
+
             url: "LoginServlet",
             timeout: 2000,
             error: function () {
@@ -26,3 +28,23 @@ $(function () { // onload...do
         return false;
     })
 });
+
+function checkIfUserLoggedIn() {
+    $.ajax
+    ({
+        url: 'LoginServlet',
+        data: {
+            action: "checkIfLogged"
+        },
+        error: function () {
+            console.error("Failed to submit");
+            console.log("fail");
+        },
+        success: function(json){
+            if(json.connected){
+            window.location="Lobby.html";
+            }
+        }
+    });
+}
+

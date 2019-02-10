@@ -191,7 +191,7 @@ private void setColorsName(){
         isActiveGame = false;
         xmlUtils = new XmlUtils();
         gameSettings = xmlUtils.getGameSettingsObjectFromFile(xml);
-        numOfPlayers = gameSettings.getPlayers().getPlayer().size();
+        numOfPlayers = gameSettings.getDynamicPlayers().getTotalPlayers();
 
         setGameLogic();
         setPlayers();
@@ -211,16 +211,6 @@ private void setColorsName(){
 
         for (int i = 0; i < numOfPlayers; i++) {
             players[i] = new Player();
-            if (!idList.contains(gameSettings.getPlayers().getPlayer().get(i).getId())) {
-                players[i].setPlayerID(gameSettings.getPlayers().getPlayer().get(i).getId().intValue());
-                idList.add(gameSettings.getPlayers().getPlayer().get(i).getId());
-            } else {
-                throw new Exception("There are players with similar ID's");
-            }
-            players[i].setPlayerNum(i + 1);
-            players[i].setPlayerName(gameSettings.getPlayers().getPlayer().get(i).getName());
-            isComputer = gameSettings.getPlayers().getPlayer().get(i).getType().toLowerCase();
-            players[i].setComputer(isComputer.equals("computer"));
             players[i].setPlayerColor(colors.get(i));
             players[i].setPlayerColorName(colorsName.get(i));
         }

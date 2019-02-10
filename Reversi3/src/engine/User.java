@@ -1,3 +1,4 @@
+package engine;
 public class User {
     private final int EMPTY = -1;
     private String name;

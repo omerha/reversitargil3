@@ -25,7 +25,7 @@ public class GamesManager {
     public boolean isGameNameExists(String name) {
         boolean res = false;
         for (GameManager value : gamesMap.values()) {
-            if (value.getGameName() == name) {
+            if (value.getGameName().equals(name)) {
                 res = true;
                 break;
             }
@@ -41,5 +41,8 @@ public class GamesManager {
       else{
           throw new Exception("There is a game named like this already!");
       }
+    }
+    public GameManager getGameByNumber(int i){
+        return gamesMap.get(i);
     }
 }
