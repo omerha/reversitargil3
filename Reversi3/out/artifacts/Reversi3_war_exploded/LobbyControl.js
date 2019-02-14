@@ -1,5 +1,6 @@
 $(function () {
 setInterval(displayLoggedInUsers,2000);
+
 });
 function displayLoggedInUsers(){
     $.ajax(
@@ -29,6 +30,30 @@ function displayLoggedInUsers(){
         }
     );
 }
+function displayAllGames(){
+    var gamesTable = $(".gamesTable tbody");
+    gamesTable.empty();
+    $.ajax({
+        url:"GameServlet",
+        data:{action:"getAllGames"},
+        error:function(error){
+            console.log("Error:" +error);
+        },
+        success:function(Games){
+            for (var key in Games) {
+                if (Games.hasOwnProperty(key)) {
+                    displayGameStats(Games[key]);
+                }
+            }
+
+        }
+    })
+}
+function displayBoardInPopup(){
+    var popupWindow = $(".dialogDiv")[0];
+    popupWindow.display = "block";
+
+}
 function displayGameStats(gameManager){
     var gamesTable = $(".gamesTable tbody");
     var tr = $(document.createElement('tr'));
@@ -37,12 +62,6 @@ function displayGameStats(gameManager){
     var gameType = $(document.createElement('td')).text(gameManager.gameSettings.game.variant);
     var gameStatus = $(document.createElement('td')).text("TEST");
     var numberOfSignedPlayers = $(document.createElement('td')).text(0+"/"+gameManager.numOfPlayers);
-    // gamesName.appendTo(tr);
-    // uploadedName.appendTo(tr);
-    // gameType.appendTo(tr);
-    // gameStatus.appendTo(tr);
-    // numberOfSignedPlayers.appendTo(tr);
-    // tr.appendTo(gamesTable);
 
     tr.append(gamesName);
 
@@ -50,12 +69,9 @@ function displayGameStats(gameManager){
     tr.append(gameType);
     tr.append(gameStatus);
     tr.append(numberOfSignedPlayers);
+
+    tr.click(displayBoardInPopup);
 gamesTable.append(tr);
-// /<th>Game's name</th>
-//     <th>Uploaded by</th>
-//     <th>Game type</th>
-//     <th>Game status</th>
-//     <th>Number of signed players</th>
 
 }
 function loadGameClicked(event) {
@@ -81,7 +97,7 @@ function loadGameClicked(event) {
                         alert(json.text);
                     }
                     else{
-                        displayGameStats(json);
+                        displayAllGames();
                     }
                 }
             }

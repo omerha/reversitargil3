@@ -22,6 +22,10 @@ public class GamesManager {
         return gamesManagerInstance;
     }
 
+    public HashMap<Integer, GameManager> getGamesMap() {
+        return gamesMap;
+    }
+
     public boolean isGameNameExists(String name) {
         boolean res = false;
         for (GameManager value : gamesMap.values()) {

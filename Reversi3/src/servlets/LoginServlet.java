@@ -4,13 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import engine.UsersManager;
+import utils.SessionsUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -26,17 +24,18 @@ public class LoginServlet extends HttpServlet {
         resp.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = resp.getWriter();
-        String action = req.getParameter("action");
+            String action = req.getParameter("action");
         boolean isComputer = false;
         if(req.getParameter("computerFlag")!=null) {
              isComputer = req.getParameter("computerFlag").equals("true");
         }
         String newUserName = req.getParameter("userName");
     if(action.equals("checkIfLogged")){
-        Cookie ck[] = req.getCookies();
+
+        HttpSession curSession = req.getSession(false);
         String jsonStr=null;
-        if(ck!=null) {
-            jsonStr = "{\"userName\" : " + ck[0].getValue() + ", \"connected\": true }";
+        if(curSession!=null) {
+            jsonStr = "{\"userName\" : " + SessionsUtils.getUsername(curSession) + ", \"connected\": true }";
         }else{
             jsonStr = "{\"connected\":false  }";
         }
@@ -53,14 +52,14 @@ public class LoginServlet extends HttpServlet {
         //   out.println(gson.toJson("Hello " + newUserName));
         if (newUserName.equals("")) {
             out.println(gson.toJson("Please fill your name!"));
-        } else if (isUserAlreadyLoggedIn(req, newUserName) == false) {
+        } else if (SessionsUtils.isLoggedIn(req.getSession()) == false) {
             if(usersManager.isUserExists(newUserName)){
                 out.println(gson.toJson("User name already exists"));
             }
             else {
                 usersManager.addUser(newUserName, isComputer);
-                Cookie newCookie = new Cookie("name", newUserName);
-                resp.addCookie(newCookie);
+               HttpSession newSession = req.getSession();
+                SessionsUtils.loginUser(newSession,newUserName,isComputer);
                 out.println(gson.toJson(""));
             }
         } else {
@@ -74,18 +73,5 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Harel");
     }
-    boolean isUserAlreadyLoggedIn(HttpServletRequest req,String userName){
-       boolean res = false;
-        Cookie ck[] = req.getCookies();
-        if(ck!=null) {
-            for (Cookie cok : ck) {
-                if (cok.getValue().toLowerCase().equals(userName.toLowerCase())) {
-                    res = true;
-                    break;
-                }
-            }
-        }
 
-        return res;
-    }
 }
