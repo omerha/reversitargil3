@@ -49,9 +49,65 @@ function displayAllGames(){
         }
     })
 }
-function displayBoardInPopup(){
+function displayBoardInPopup(gameManager){
     var popupWindow = $(".dialogDiv")[0];
-    popupWindow.display = "block";
+    popupWindow.style.display = "table";
+    $("body").click
+    (
+        function(e)
+        {
+            if(e.target.className !== "form_wrapper")
+            {
+                $(".square").hide();
+            }
+        }
+    );
+/*    $(document).mouseup(function(e)
+    {
+        var container = $(".dialogDiv")[0];
+
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0)
+        {
+            container.hide();
+        }
+    });*/
+    printBoard(gameManager.gameBoard.rows,gameManager.gameBoard.cols,gameManager.gameBoard.gameBoard);
+
+}
+function removeGameDialog(window){
+    $(".dialogDiv")[0].style.display = "none";
+}
+function printBoard(numOfRows,numOfCols,gameBoard){
+
+    var board  = $(".board");
+
+    for(var i = 0 ; i<numOfRows ; i++){
+        var rowDiv = $(document.createElement("div"));
+        rowDiv.addClass("rowDiv");
+        for (var j =0;j<numOfCols;j++ ){
+            var squareDiv = $(document.createElement("div"));
+            squareDiv.addClass("square");
+
+            switch(gameBoard[i+1][j+1]){
+                case 1:
+                    squareDiv.css({"background":"red"});
+                    break;
+                case 2:
+                    squareDiv.css({"background":"blue"});
+                    break;
+                case 3:
+                    squareDiv.css({"background":"yellow"});
+                    break;
+                case 4:
+                    squareDiv.css({"background":"black"});
+                    break;
+                default:
+            }
+            rowDiv.append(squareDiv);
+        }
+        board.append(rowDiv);
+    }
 
 }
 function displayGameStats(gameManager){
@@ -70,7 +126,7 @@ function displayGameStats(gameManager){
     tr.append(gameStatus);
     tr.append(numberOfSignedPlayers);
 
-    tr.click(displayBoardInPopup);
+    tr.click(function(){displayBoardInPopup(gameManager)});
 gamesTable.append(tr);
 
 }
