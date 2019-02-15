@@ -282,6 +282,31 @@ private void setColorsName(){
         }
     }
 
+    private int displayPossibleMovesScoreHelper(int rowMove, int colMove, int playerIndex) {
+        int possiblePoints = 0;
+        try {
+            if (gameModeLogic.checkIfTurnIsOk(rowMove, colMove, getGameBoard())) {
+                possiblePoints = gameBoard.checkForSequence(rowMove, colMove, playerIndex, new Move(), false);
+            } else {
+                possiblePoints = -1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            possiblePoints =-1;
+        }
+        return possiblePoints;
+    }
+
+    public void displayPossibleMovesScore(int playerIndex) {
+        int possiblePoints = 0;
+        for (int currRow = 1; currRow < getGameBoard().getRows(); currRow++) {
+            for (int currCol = 0; currCol < getGameBoard().getCols(); currCol++) {
+                possiblePoints = displayPossibleMovesScoreHelper(currRow, currCol, playerIndex);
+                System.out.println("Row: "+currRow+"; Col: "+currCol+"; possiblePoints: "+possiblePoints+";");
+            }
+        }
+    }
+
     public Player[] getPlayers() {
         return players;
     }
@@ -341,7 +366,7 @@ private void setColorsName(){
             res = true;
             currMove = new Move(rowNewMove, colNewMove);
             gameBoard.getGameBoard()[rowNewMove][colNewMove] = players[playerIndex].getPlayerNum();
-            int pointsTurn = gameBoard.checkForSequence(rowNewMove, colNewMove, players[playerIndex].getPlayerNum(), currMove);
+            int pointsTurn = gameBoard.checkForSequence(rowNewMove, colNewMove, players[playerIndex].getPlayerNum(), currMove,true);
             players[playerIndex].setPointsAndCalculateAverage(pointsTurn);
             decreaseRivalsPoints(currMove);
             players[playerIndex].setNumOfMoves(players[playerIndex].getNumOfMoves() + 1);

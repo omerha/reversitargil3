@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+
 public class Board implements Serializable {
     public static final char FIRST_PLAYER_SIGN = 'X';
     public static final char SECOND_PLAYER_SIGN = 'O';
@@ -113,11 +115,11 @@ public class Board implements Serializable {
         return isFull;
     }
 
-    public int checkForSequence(int row, int col, int sign, Move currMove) {
-        return checkRowForSequence(row, col, sign, currMove) + checkColForSequence(row, col, sign, currMove) + checkDiagonalForSequence(row, col, sign, currMove);
+    public int checkForSequence(int row, int col, int sign, Move currMove,boolean isRealTurn) {
+        return checkRowForSequence(row, col, sign, currMove,isRealTurn) + checkColForSequence(row, col, sign, currMove,isRealTurn) + checkDiagonalForSequence(row, col, sign, currMove,isRealTurn);
     }
 
-    public int checkRowForSequence(int row, int col, int sign, Move currMove) {
+    public int checkRowForSequence(int row, int col, int sign, Move currMove, boolean isRealturn) {
         int numOfFlippedPiecesRight = 0, numOfFLippedPiecesLeft = 0;
         boolean finishedCounting = false;
         List<Pair<Integer, Pair<Integer, Integer>>> tempFlippedPiecesList = new ArrayList<>();
@@ -138,7 +140,7 @@ public class Board implements Serializable {
         if (!finishedCounting) {
             numOfFlippedPiecesRight = 0;
         }
-        if (numOfFlippedPiecesRight == 0) {
+        if (numOfFlippedPiecesRight == 0 ||  !isRealturn) {
             tempRow = Arrays.copyOf(gameBoard[row], gameBoard[row].length);
         } else {
             gameBoard[row] = Arrays.copyOf(tempRow, gameBoard[row].length);
@@ -162,7 +164,7 @@ public class Board implements Serializable {
         if (!finishedCounting) {
             numOfFLippedPiecesLeft = 0;
         }
-        if (numOfFLippedPiecesLeft != 0) {
+        if (numOfFLippedPiecesLeft != 0 && isRealturn) {
             gameBoard[row] = tempRow;
             currMove.getFlippedPiecesLocationsList().addAll(tempFlippedPiecesList);
         }
@@ -179,7 +181,7 @@ public class Board implements Serializable {
         return output;
     }
 
-    public int checkColForSequence(int row, int col, int sign, Move currMove) {
+    public int checkColForSequence(int row, int col, int sign, Move currMove,boolean isRealturn) {
         int numOfFlippedPiecesUp = 0, numOfFlippedPiecesDown = 0;
         List<Pair<Integer, Pair<Integer, Integer>>> tempFlippedPiecesList = new ArrayList<>();
         boolean finishedCounting = false;
@@ -200,7 +202,7 @@ public class Board implements Serializable {
         if (!finishedCounting) {
             numOfFlippedPiecesDown = 0;
         }
-        if (numOfFlippedPiecesDown == 0) {
+        if (numOfFlippedPiecesDown == 0 || !isRealturn) {
             tempBoard = cloneArray(gameBoard);
         } else {
             gameBoard = cloneArray(tempBoard);
@@ -224,14 +226,14 @@ public class Board implements Serializable {
         if (!finishedCounting) {
             numOfFlippedPiecesUp = 0;
         }
-        if (numOfFlippedPiecesUp != 0) {
+        if (numOfFlippedPiecesUp != 0 && isRealturn) {
             gameBoard = cloneArray(tempBoard);
             currMove.getFlippedPiecesLocationsList().addAll(tempFlippedPiecesList);
         }
         return numOfFlippedPiecesDown + numOfFlippedPiecesUp;
     }
 
-    public int checkDiagonalForSequence(int row, int col, int sign, Move currMove) {
+    public int checkDiagonalForSequence(int row, int col, int sign, Move currMove,boolean isRealturn) {
         int numOfFlippedPiecesUp = 0, numOfFlippedPiecesDown = 0;
         List<Pair<Integer, Pair<Integer, Integer>>> tempFlippedPiecesList = new ArrayList<>();
         boolean finishedCounting = false;
@@ -253,7 +255,7 @@ public class Board implements Serializable {
         if (!finishedCounting) {
             numOfFlippedPiecesDown = 0;
         }
-        if (numOfFlippedPiecesDown == 0) {
+        if (numOfFlippedPiecesDown == 0 || !isRealturn) {
             tempBoard = cloneArray(gameBoard);
         } else {
             gameBoard = cloneArray(tempBoard);
@@ -277,14 +279,14 @@ public class Board implements Serializable {
         if (!finishedCounting) {
             numOfFlippedPiecesUp = 0;
         }
-        if (numOfFlippedPiecesUp != 0) {
+        if (numOfFlippedPiecesUp != 0 && isRealturn) {
             gameBoard = cloneArray(tempBoard);
             currMove.getFlippedPiecesLocationsList().addAll(tempFlippedPiecesList);
         }
-        return numOfFlippedPiecesDown + numOfFlippedPiecesUp + checkDiagonalsForSequence(row, col, sign, currMove);
+        return numOfFlippedPiecesDown + numOfFlippedPiecesUp + checkDiagonalsForSequence(row, col, sign, currMove,isRealturn);
     }
 
-    private int checkDiagonalsForSequence(int row, int col, int sign, Move currMove) {
+    private int checkDiagonalsForSequence(int row, int col, int sign, Move currMove,boolean isRealturn) {
         int numOfFlippedPiecesUp = 0, numOfFlippedPiecesDown = 0;
         List<Pair<Integer, Pair<Integer, Integer>>> tempFlippedPiecesList = new ArrayList<>();
         boolean finishedCounting = false;
@@ -306,7 +308,7 @@ public class Board implements Serializable {
         if (!finishedCounting) {
             numOfFlippedPiecesDown = 0;
         }
-        if (numOfFlippedPiecesDown == 0) {
+        if (numOfFlippedPiecesDown == 0 || !isRealturn) {
             tempBoard = cloneArray(gameBoard);
         } else {
             gameBoard = cloneArray(tempBoard);
@@ -330,7 +332,7 @@ public class Board implements Serializable {
         if (!finishedCounting) {
             numOfFlippedPiecesUp = 0;
         }
-        if (numOfFlippedPiecesUp != 0) {
+        if (numOfFlippedPiecesUp != 0 && isRealturn) {
             gameBoard = cloneArray(tempBoard);
             currMove.getFlippedPiecesLocationsList().addAll(tempFlippedPiecesList);
         }
