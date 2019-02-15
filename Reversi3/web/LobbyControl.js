@@ -52,26 +52,7 @@ function displayAllGames(){
 function displayBoardInPopup(gameManager){
     var popupWindow = $(".dialogDiv")[0];
     popupWindow.style.display = "table";
-    $("body").click
-    (
-        function(e)
-        {
-            if(e.target.className !== "form_wrapper")
-            {
-                $(".square").hide();
-            }
-        }
-    );
-/*    $(document).mouseup(function(e)
-    {
-        var container = $(".dialogDiv")[0];
 
-        // if the target of the click isn't the container nor a descendant of the container
-        if (!container.is(e.target) && container.has(e.target).length === 0)
-        {
-            container.hide();
-        }
-    });*/
     printBoard(gameManager.gameBoard.rows,gameManager.gameBoard.cols,gameManager.gameBoard.gameBoard);
 
 }
@@ -81,7 +62,7 @@ function removeGameDialog(window){
 function printBoard(numOfRows,numOfCols,gameBoard){
 
     var board  = $(".board");
-
+board.empty();
     for(var i = 0 ; i<numOfRows ; i++){
         var rowDiv = $(document.createElement("div"));
         rowDiv.addClass("rowDiv");
@@ -129,6 +110,19 @@ function displayGameStats(gameManager){
     tr.click(function(){displayBoardInPopup(gameManager)});
 gamesTable.append(tr);
 
+}
+function onLogoutClick(){
+
+    $.ajax({
+        data:{action:"logout"},
+        url:"LoginServlet",
+        error:function(){
+            console.log("Something went wrong while attempting to log out");},
+        success:function(){
+            window.location="/";}
+
+    });
+    return false;
 }
 function loadGameClicked(event) {
     var file = event.target.files[0];
