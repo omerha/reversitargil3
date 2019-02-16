@@ -33,7 +33,7 @@ public class GameManager implements Serializable {
     List<Color> colors = new ArrayList<>();
     List<String> colorsName = new ArrayList<>();
     private boolean isReplayMode;
-
+    private int totalNumOfTurnsDisplay;
     public String getNameOfPlayerWhoCreatedTheGame() {
         return nameOfPlayerWhoCreatedTheGame;
     }
@@ -41,7 +41,13 @@ public class GameManager implements Serializable {
     public void setNameOfPlayerWhoCreatedTheGame(String nameOfPlayerWhoCreatedTheGame) {
         this.nameOfPlayerWhoCreatedTheGame = nameOfPlayerWhoCreatedTheGame;
     }
+    public int getTotalNumOfTurnsDisplay() {
+        return totalNumOfTurnsDisplay;
+    }
 
+    public void setTotalNumOfTurnsDisplay(int totalNumOfTurnsDisplay) {
+        this.totalNumOfTurnsDisplay = totalNumOfTurnsDisplay;
+    }
     public int getNumOfSignedPlayers() {
         return numOfSignedPlayers;
     }
@@ -168,15 +174,15 @@ private void setColorsName(){
     public StringBuilder displayGameBoardAndStats(GameManager gameManager) {
 
         StringBuilder outPut = new StringBuilder();
-        for (int i = 0; i < gameManager.getNumOfPlayers(); i++) {
+        for (int i = 0; i < players.length; i++) {
             //   outPut.append("Player number " + (i + 1) + " sign: " + gameManager.getPlayers()[i].getPlayerSign() + System.lineSeparator());
         }
         outPut.append("Game mode: " + gameManager.getGameSettings().getGame().getVariant() + System.lineSeparator());
         outPut.append("Is game active: " + (gameManager.isActiveGame() ? "Yes" : "No") + System.lineSeparator());
         if (gameManager.isActiveGame()) {
-            int currentPlayerTurnIndex = gameManager.getTotalNumOfTurns() % gameManager.getNumOfPlayers();
+            int currentPlayerTurnIndex = gameManager.getTotalNumOfTurns() % players.length;
             outPut.append("Current turn: Player number " + (currentPlayerTurnIndex + 1) + System.lineSeparator());
-            for (int i = 0; i < gameManager.getNumOfPlayers(); i++) {
+            for (int i = 0; i < players.length; i++) {
                 outPut.append("Player number " + (i + 1) + " stats:" + System.lineSeparator());
                 outPut.append("Turns played: " + gameManager.getPlayers()[i].getNumOfMoves() + System.lineSeparator());
                 outPut.append("Average points per turn: " + gameManager.getPlayers()[i].getAvgPointsPerTurn() + System.lineSeparator());
@@ -199,7 +205,25 @@ private void setColorsName(){
         gameBoard = new Board();
         gameBoard.initBoardHelper(gameSettings, players, gameModeLogic);
     }
-
+    public int numOfHumanPlayers() {
+        int result = 0;
+        for (Player player : players) {
+            if (!player.isComputer()) {
+                result += 1;
+            }
+        }
+        return result;
+    }
+    public void retirePlayerFromGame() {
+        int currentPlayersTurnIndex = totalNumOfTurns % players.length;
+        players[currentPlayersTurnIndex].setRetiredFromGame(true);
+        try {
+            this.setTotalNumOfTurns(totalNumOfTurns + 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        numOfPlayers -= 1;
+    }
     public void setPlayers() throws Exception {
         setColors();
         setColorsName();
@@ -264,6 +288,14 @@ private void setColorsName(){
 
     public void setTotalNumOfTurns(int totalNumOfTurns) throws Exception {
         this.totalNumOfTurns = totalNumOfTurns;
+        boolean retiredFromGame = true;
+        while (retiredFromGame) {
+            if (players[this.totalNumOfTurns % players.length].isRetiredFromGame()) {
+                this.totalNumOfTurns += 1;
+            } else {
+                retiredFromGame = false;
+            }
+        }
         if (players[totalNumOfTurns % players.length].isComputer() && !isReplayMode) {
 
             new java.util.Timer().schedule(
@@ -341,7 +373,7 @@ private void setColorsName(){
     }
 
     public void makeATurnForReplay() {
-        int playerIndex = totalNumOfTurns % numOfPlayers;
+        int playerIndex = totalNumOfTurns % players.length;
         players[playerIndex].setNumOfCurrentMoveForReplay(players[playerIndex].getNumOfCurrentMoveForReplay() + 1);
         Move moveToDo = players[playerIndex].getPlayerMovesHistoryList().get(players[playerIndex].getNumOfCurrentMoveForReplay());
         try {
@@ -380,11 +412,14 @@ private void setColorsName(){
 
     public void undoTurn(boolean shouldRemoveMove) throws Exception {
         if (totalNumOfTurns > 0) {
-            setTotalNumOfTurns(totalNumOfTurns - 1);//DEAL WITH HIS
+            setTotalNumOfTurns(totalNumOfTurns - 1);
+            totalNumOfTurnsDisplay-=1;
+
             int lastPlayedPlayerIndex = totalNumOfTurns % numOfPlayers;
             Move lastMove = null;
             if (shouldRemoveMove) {
                 lastMove = players[lastPlayedPlayerIndex].getPlayerMovesHistoryList().get(players[lastPlayedPlayerIndex].getPlayerMovesHistoryList().size() - 1);
+                totalNumOfTurnsToReplay-=1;
             } else {
                 lastMove = players[lastPlayedPlayerIndex].getPlayerMovesHistoryList().get(players[lastPlayedPlayerIndex].getNumOfCurrentMoveForReplay());
             }
@@ -399,7 +434,7 @@ private void setColorsName(){
     public int getWinnerIndex() {
         int maxPoints = players[0].getPoints();
         int currIndex = 0;
-        for (int i = 1; i < numOfPlayers; i++) {
+        for (int i = 1; i < players.length; i++) {
             if (players[i].getPoints() > maxPoints) {
                 maxPoints = players[i].getPoints();
                 currIndex = i;

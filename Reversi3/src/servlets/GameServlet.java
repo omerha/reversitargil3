@@ -30,21 +30,30 @@ public class GameServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         resp.setContentType("application/json");
         Gson gson = new Gson();
-        if(("getAllGames").equals(req.getParameter("action"))){
-            out.println(gson.toJson(gamesManager.getGamesMap()));
+        String action = req.getParameter("action");
+        switch(action){
+            case "getAllGames":
+                out.println(gson.toJson(gamesManager.getGamesMap()));
+                break;
+            case "uploadGame":
+                uploadGameHelper(req,out,gson);
+                break;
+            default:
+                break;
         }
-        else {
-            try {
-                gamesManager.addGame(req.getParameter("file"), "OMER");
-                out.println(gson.toJson(""));
-            } catch (Exception e) {
+        out.close();
+    }
+    private void uploadGameHelper(HttpServletRequest req,PrintWriter out,Gson gson){
+        try {
+            gamesManager.addGame(req.getParameter("file"), (String) req.getSession(false).getAttribute("userName"));
+            out.println(gson.toJson(""));
+        } catch (Exception e) {
 
-                String jsonStr = "{\"text\" : \"" + e.getMessage() + "\", \"error\": true }";
-                JsonElement element = gson.fromJson(jsonStr, JsonElement.class); //Converts the json string to JsonElement without POJO
-                JsonObject jsonObj = element.getAsJsonObject();
-                out.println(gson.toJson(jsonObj));
-                e.printStackTrace();
-            }
+            String jsonStr = "{\"text\" : \"" + e.getMessage() + "\", \"error\": true }";
+            JsonElement element = gson.fromJson(jsonStr, JsonElement.class); //Converts the json string to JsonElement without POJO
+            JsonObject jsonObj = element.getAsJsonObject();
+            out.println(gson.toJson(jsonObj));
+            e.printStackTrace();
         }
     }
 }

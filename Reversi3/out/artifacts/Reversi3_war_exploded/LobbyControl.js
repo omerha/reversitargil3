@@ -95,14 +95,14 @@ function displayGameStats(gameManager){
     var gamesTable = $(".gamesTable tbody");
     var tr = $(document.createElement('tr'));
     var gamesName = $(document.createElement('td')).text(gameManager.gameName);
-    var uploadedName = $(document.createElement('td')).text("TEST");
+    var uploaderName = $(document.createElement('td')).text(gameManager.nameOfPlayerWhoCreatedTheGame);
     var gameType = $(document.createElement('td')).text(gameManager.gameSettings.game.variant);
-    var gameStatus = $(document.createElement('td')).text("TEST");
-    var numberOfSignedPlayers = $(document.createElement('td')).text(0+"/"+gameManager.numOfPlayers);
+    var gameStatus = $(document.createElement('td')).text(gameManager.isActiveGame?"Active":"Inactive");
+    var numberOfSignedPlayers = $(document.createElement('td')).text(gameManager.numOfSignedPlayers+"/"+gameManager.numOfPlayers);
 
     tr.append(gamesName);
 
-    tr.append(uploadedName);
+    tr.append(uploaderName);
     tr.append(gameType);
     tr.append(gameStatus);
     tr.append(numberOfSignedPlayers);
@@ -137,7 +137,7 @@ function loadGameClicked(event) {
             {
                 type: 'POST',
                 url: 'GameServlet',
-                data:{ file:content},
+                data:{ file:content,action:"uploadGame"},
                 error: function () {
                     console.error("Failed to submit");
                     console.log("fail");

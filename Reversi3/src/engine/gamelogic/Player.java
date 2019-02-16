@@ -27,6 +27,15 @@ private int numOfCurrentMoveForReplay;
     private List<Move> playerMovesHistoryList = new ArrayList<>();
     private boolean isComputer;
     private String playerColorName;
+    private boolean isRetiredFromGame;
+
+    public boolean isRetiredFromGame() {
+        return isRetiredFromGame;
+    }
+
+    public void setRetiredFromGame(boolean retiredFromGame) {
+        isRetiredFromGame = retiredFromGame;
+    }
 
     public String getPlayerColorName() {
         return playerColorName;

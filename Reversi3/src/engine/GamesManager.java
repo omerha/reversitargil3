@@ -41,6 +41,7 @@ public class GamesManager {
         newGame.loadGameSettingsFromXML(xml);
       if(isGameNameExists(newGame.getGameName())==false){
           gamesMap.put(numOfgames++,newGame);
+          newGame.setNameOfPlayerWhoCreatedTheGame(gameCreatorName);
       }
       else{
           throw new Exception("There is a game named like this already!");
