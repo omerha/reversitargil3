@@ -7,10 +7,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5176d1e5-60d3-4180-bcaf-db581d69bf1e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/servlets/LobbyServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/GameRoom.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/GameRoom.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/GameRoomControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Reversi3_war_exploded/Lobby.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Reversi3_war_exploded/Lobby.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Reversi3_war_exploded/LobbyControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Reversi3_war_exploded/LobbyControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Reversi3_war_exploded/WEB-INF/classes/servlets/GameServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Reversi3/servlets/GameServlet.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/GamesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/GamesManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine/UsersManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/UsersManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/gamelogic/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/gamelogic/GameManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/gamelogic/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/gamelogic/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/servlets/GameServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/GameServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/servlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/Lobby.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/Lobby.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/LobbyControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/LobbyControl.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -19,6 +32,25 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/src/servlets/LoginServlet.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="1109">
+                    <caret line="83" selection-start-line="83" selection-end-line="83" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1415701316">
@@ -121,152 +153,225 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="24" />
-          <entry key="HTML" value="32" />
-          <entry key="JAVA" value="2795" />
-          <entry key="JavaScript" value="1545" />
-          <entry key="PLAIN_TEXT" value="12" />
+          <entry key="CSS" value="233" />
+          <entry key="HTML" value="209" />
+          <entry key="JAVA" value="4866" />
+          <entry key="JavaScript" value="3436" />
+          <entry key="PLAIN_TEXT" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="1" />
-          <entry key="HTML" value="2" />
-          <entry key="JAVA" value="47" />
-          <entry key="JavaScript" value="6" />
+          <entry key="CSS" value="10" />
+          <entry key="HTML" value="7" />
+          <entry key="JAVA" value="60" />
+          <entry key="JavaScript" value="13" />
+          <entry key="TypeScript" value="1" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/LobbyControl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="139" column="42" selection-start-line="139" selection-start-column="42" selection-end-line="139" selection-end-column="42" />
-              <folding>
-                <element signature="e#1223#1292#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/servlets/GameServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="52" column="88" selection-start-line="52" selection-start-column="88" selection-end-line="52" selection-end-column="88" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/engine/GamesManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="35" column="9" lean-forward="true" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#313#314#0" expanded="true" />
-                <element signature="e#355#356#0" expanded="true" />
-                <element signature="e#614#615#0" expanded="true" />
-                <element signature="e#645#646#0" expanded="true" />
-                <element signature="e#1367#1368#0" expanded="true" />
-                <element signature="e#1405#1406#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/servlets/LoginServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="30" column="25" lean-forward="true" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/GameManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="23" column="34" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="34" />
-              <folding>
-                <element signature="e#1542#1543#0" expanded="true" />
-                <element signature="e#1587#1588#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/LoginControl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="40" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/engine/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="25" column="46" lean-forward="true" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
-              <folding>
-                <element signature="e#1104#1105#0" expanded="true" />
-                <element signature="e#1144#1145#0" expanded="true" />
-                <element signature="e#1207#1208#0" expanded="true" />
-                <element signature="e#1258#1259#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/Lobby.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/LobbyControl.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="87">
+                  <caret line="71" selection-start-line="71" selection-end-line="102" selection-end-column="1" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/engine/GamesManager.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="467">
+                  <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#313#314#0" expanded="true" />
+                    <element signature="e#355#356#0" expanded="true" />
+                    <element signature="e#614#615#0" expanded="true" />
+                    <element signature="e#645#646#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/GameManager.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-66">
+                  <caret line="271" selection-start-line="271" selection-end-line="271" />
+                  <folding>
+                    <element signature="e#1275#1276#0" expanded="true" />
+                    <element signature="e#1304#1305#0" expanded="true" />
+                    <element signature="e#1345#1346#0" expanded="true" />
+                    <element signature="e#1381#1382#0" expanded="true" />
+                    <element signature="e#10878#10879#0" expanded="true" />
+                    <element signature="e#10916#10917#0" expanded="true" />
+                    <element signature="e#13002#13003#0" expanded="true" />
+                    <element signature="e#13032#13033#0" expanded="true" />
+                    <element signature="e#13080#13081#0" expanded="true" />
+                    <element signature="e#13118#13119#0" expanded="true" />
+                    <element signature="e#13166#13167#0" expanded="true" />
+                    <element signature="e#13201#13202#0" expanded="true" />
+                    <element signature="e#17433#17434#0" expanded="true" />
+                    <element signature="e#17479#17480#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/web/GameRoom.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="223">
+                  <caret line="112" column="16" lean-forward="true" selection-start-line="112" selection-start-column="16" selection-end-line="112" selection-end-column="16" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/GameRoom.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="155">
+                  <caret line="135" column="30" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="30" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/GameRoomControl.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="476">
+                  <caret line="52" column="34" lean-forward="true" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="166">
+                  <caret line="11922" column="13" selection-start-line="11922" selection-start-column="13" selection-end-line="11922" selection-end-column="13" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/Lobby.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="194">
+                  <caret line="51" selection-start-line="51" selection-end-line="62" selection-end-column="16" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/LoginControl.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="328">
+                  <caret line="39" column="46" lean-forward="true" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/servlets/LobbyServlet.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="336">
+                  <caret line="51" column="20" lean-forward="true" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/LobbyControl.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="172">
+                  <caret line="105" column="34" selection-start-line="105" selection-start-column="34" selection-end-line="105" selection-end-column="34" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/GameRoomControl.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="357">
+                  <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/GameRoom.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="104">
+                  <caret line="122" column="42" selection-start-line="122" selection-start-column="42" selection-end-line="122" selection-end-column="42" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/GameRoom.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="578">
+                  <caret line="154" column="22" selection-start-line="154" selection-start-column="22" selection-end-line="154" selection-end-column="22" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/servlets/GameServlet.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="144">
+                  <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/LoginStyle.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="323">
+                  <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/web/Lobby.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-799">
+                  <caret line="60" selection-start-line="60" selection-end-line="63" selection-end-column="1" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Class" />
         <option value="HTML File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
-        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>index</find>
-      <find>computer</find>
-      <find>choo</find>
-      <find>loadGameSettingsFromXML</find>
       <find>loadgame</find>
       <find>load</find>
       <find>loginser</find>
@@ -274,7 +379,6 @@
       <find>login</find>
       <find>printboard</find>
       <find>displaybo</find>
-      <find>square</find>
       <find>dia</find>
       <find>hide</find>
       <find>logout</find>
@@ -282,6 +386,22 @@
       <find>numofplayers</find>
       <find>replay</find>
       <find>undo</find>
+      <find>gameserv</find>
+      <find>!</find>
+      <find>joi</find>
+      <find>join</find>
+      <find>playername</find>
+      <find>bottom</find>
+      <find>post</find>
+      <find>print</find>
+      <find>main</find>
+      <find>square</find>
+      <find>board</find>
+      <find>players</find>
+      <find>table</find>
+      <find>th</find>
+      <find>padding</find>
+      <find>boardb</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -315,15 +435,20 @@
         <option value="$PROJECT_DIR$/src/User.java" />
         <option value="$PROJECT_DIR$/web/index.html" />
         <option value="$PROJECT_DIR$/web/LoginControl.js" />
-        <option value="$PROJECT_DIR$/src/engine/UsersManager.java" />
-        <option value="$PROJECT_DIR$/web/Lobby.html" />
         <option value="$PROJECT_DIR$/web/Lobby.css" />
-        <option value="$PROJECT_DIR$/src/servlets/LoginServlet.java" />
-        <option value="$PROJECT_DIR$/src/engine/gamelogic/GameManager.java" />
+        <option value="$PROJECT_DIR$/src/engine/UsersManager.java" />
+        <option value="$PROJECT_DIR$/src/engine/User.java" />
         <option value="$PROJECT_DIR$/src/engine/gamelogic/Player.java" />
+        <option value="$PROJECT_DIR$/src/engine/gamelogic/GameManager.java" />
+        <option value="$PROJECT_DIR$/src/servlets/LoginServlet.java" />
+        <option value="$PROJECT_DIR$/src/servlets/LobbyServlet.java" />
+        <option value="$PROJECT_DIR$/web/Lobby.html" />
         <option value="$PROJECT_DIR$/web/LobbyControl.js" />
-        <option value="$PROJECT_DIR$/src/servlets/GameServlet.java" />
         <option value="$PROJECT_DIR$/src/engine/GamesManager.java" />
+        <option value="$PROJECT_DIR$/web/GameRoom.html" />
+        <option value="$PROJECT_DIR$/src/servlets/GameServlet.java" />
+        <option value="$PROJECT_DIR$/web/GameRoomControl.js" />
+        <option value="$PROJECT_DIR$/web/GameRoom.css" />
       </list>
     </option>
   </component>
@@ -410,12 +535,6 @@
             </path>
             <path>
               <item name="Reversi3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Reversi3" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Reversi3" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -430,7 +549,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550348781221" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550441256838" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Gridler - ex3" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -438,7 +557,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -553,36 +672,36 @@
       <workItem from="1550240728203" duration="9115000" />
       <workItem from="1550267874642" duration="31000" />
       <workItem from="1550271182315" duration="532000" />
-      <workItem from="1550338919847" duration="3049000" />
+      <workItem from="1550338919847" duration="30359000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63478000" />
+    <option name="totallyTimeSpent" value="90788000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23933902" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.73992676" visible="true" weight="0.23933902" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info id="Capture Tool" order="6" />
-      <window_info id="Web" order="7" side_tool="true" />
+      <window_info id="Web" order="7" sideWeight="0.26007327" side_tool="true" visible="true" weight="0.23933902" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32888147" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33632287" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4078091" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286334" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3362256" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.4078091" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3291815" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.3295964" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.3286334" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="13" show_stripe_button="false" />
@@ -666,30 +785,20 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/web/LobbyControl.js</url>
-          <line>104</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web/LobbyControl.js</url>
-          <line>103</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web/LobbyControl.js</url>
-          <line>110</line>
+          <line>123</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/servlets/GameServlet.java</url>
-          <line>47</line>
-          <properties />
-          <option name="timeStamp" value="13" />
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/GameRoomControl.js</url>
+          <line>57</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
-        <watch expression="req.getSession(false)" language="JAVA" />
+        <watch expression="omer" language="JAVA" />
         <watch expression="req.getParameter(&quot;ComputerCheckBox&quot;)" language="JAVA" />
         <watch expression="curSession.getAttribute(&quot;userName&quot;)" />
       </configuration>
@@ -702,47 +811,61 @@
   <component name="debuggerHistoryManager">
     <expressions id="watch">
       <expression>
-        <expression-string>req.getSession(false)</expression-string>
+        <expression-string>jsObject.get(&quot;players&quot;).getAsJsonPrimitive()</expression-string>
         <language-id>JAVA</language-id>
+        <custom-info>com.google.gson.JsonParser</custom-info>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>req.getSession()</expression-string>
+        <expression-string>jsObject.get(&quot;players&quot;).getAsJsonObject()</expression-string>
         <language-id>JAVA</language-id>
+        <custom-info>com.google.gson.JsonParser</custom-info>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>newSession</expression-string>
+        <expression-string>jsObject.get(&quot;players&quot;)[0]</expression-string>
         <language-id>JAVA</language-id>
+        <custom-info>com.google.gson.JsonParser</custom-info>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>curSession</expression-string>
+        <expression-string>jsObject.get(&quot;players&quot;)</expression-string>
         <language-id>JAVA</language-id>
+        <custom-info>com.google.gson.JsonParser</custom-info>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>req.getParameter(&quot;ComputerCheckBox&quot;)</expression-string>
+        <expression-string>jsObject.members</expression-string>
         <language-id>JAVA</language-id>
+        <custom-info>com.google.gson.JsonParser</custom-info>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>req.getParameterNames()</expression-string>
+        <expression-string>jsObject</expression-string>
         <language-id>JAVA</language-id>
+        <custom-info>com.google.gson.JsonParser</custom-info>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>gameSettings</expression-string>
+        <expression-string>jsObject.players</expression-string>
         <language-id>JAVA</language-id>
+        <custom-info>com.google.gson.JsonParser</custom-info>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>gameSettings.getPlayers()</expression-string>
+        <expression-string>jsObject.</expression-string>
         <language-id>JAVA</language-id>
+        <custom-info>com.google.gson.JsonParser</custom-info>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>gameSettings.getGame().getInitialPositions().getParticipant().size()</expression-string>
+        <expression-string>gson.fromJson(jsObject,GameManager.class)</expression-string>
+        <language-id>JAVA</language-id>
+        <custom-info>com.google.gson.JsonParser</custom-info>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>omer</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -766,16 +889,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/SessionUtils.java" />
-    <entry file="file://$PROJECT_DIR$/web/jquery-2.0.3.min.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/LoginStyle.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/Move.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -909,110 +1022,160 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/Lobby.css">
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2669">
-          <caret line="157" column="17" selection-start-line="157" selection-start-column="17" selection-end-line="157" selection-end-column="17" />
+        <state relative-caret-position="238">
+          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+          <folding>
+            <element signature="e#398#399#0" expanded="true" />
+            <element signature="e#443#444#0" expanded="true" />
+            <element signature="e#483#484#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/engine/UsersManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="345">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
           <folding>
-            <element signature="e#611#612#0" expanded="true" />
-            <element signature="e#660#661#0" expanded="true" />
             <element signature="e#720#721#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/Lobby.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="25" column="46" lean-forward="true" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
-          <folding>
-            <element signature="e#1104#1105#0" expanded="true" />
-            <element signature="e#1144#1145#0" expanded="true" />
-            <element signature="e#1207#1208#0" expanded="true" />
-            <element signature="e#1258#1259#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/GameManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="23" column="34" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="34" />
-          <folding>
-            <element signature="e#1542#1543#0" expanded="true" />
-            <element signature="e#1587#1588#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="194">
+          <caret line="51" selection-start-line="51" selection-end-line="62" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/LoginControl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="40" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
+        <state relative-caret-position="328">
+          <caret line="39" column="46" lean-forward="true" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/LobbyControl.js">
+    <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/GameManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="139" column="42" selection-start-line="139" selection-start-column="42" selection-end-line="139" selection-end-column="42" />
+        <state relative-caret-position="-66">
+          <caret line="271" selection-start-line="271" selection-end-line="271" />
           <folding>
-            <element signature="e#1223#1292#0" />
+            <element signature="e#1275#1276#0" expanded="true" />
+            <element signature="e#1304#1305#0" expanded="true" />
+            <element signature="e#1345#1346#0" expanded="true" />
+            <element signature="e#1381#1382#0" expanded="true" />
+            <element signature="e#10878#10879#0" expanded="true" />
+            <element signature="e#10916#10917#0" expanded="true" />
+            <element signature="e#13002#13003#0" expanded="true" />
+            <element signature="e#13032#13033#0" expanded="true" />
+            <element signature="e#13080#13081#0" expanded="true" />
+            <element signature="e#13118#13119#0" expanded="true" />
+            <element signature="e#13166#13167#0" expanded="true" />
+            <element signature="e#13201#13202#0" expanded="true" />
+            <element signature="e#17433#17434#0" expanded="true" />
+            <element signature="e#17479#17480#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servlets/LoginServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="30" column="25" lean-forward="true" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+        <state relative-caret-position="1109">
+          <caret line="83" selection-start-line="83" selection-end-line="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/jquery-2.0.3.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/LoginStyle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/engine/GamesManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="35" column="9" lean-forward="true" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
+        <state relative-caret-position="467">
+          <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#313#314#0" expanded="true" />
             <element signature="e#355#356#0" expanded="true" />
             <element signature="e#614#615#0" expanded="true" />
             <element signature="e#645#646#0" expanded="true" />
-            <element signature="e#1367#1368#0" expanded="true" />
-            <element signature="e#1405#1406#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servlets/GameServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="52" column="88" selection-start-line="52" selection-start-column="88" selection-end-line="52" selection-end-column="88" />
+        <state relative-caret-position="144">
+          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/servlets/LobbyServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="51" column="20" lean-forward="true" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/GameRoom.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="135" column="30" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/LobbyControl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="71" selection-start-line="71" selection-end-line="102" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="11922" column="13" selection-start-line="11922" selection-start-column="13" selection-end-line="11922" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/GameRoomControl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="52" column="34" lean-forward="true" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/Lobby.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-799">
+          <caret line="60" selection-start-line="60" selection-end-line="63" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/GameRoom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="112" column="16" lean-forward="true" selection-start-line="112" selection-start-column="16" selection-end-line="112" selection-end-column="16" />
         </state>
       </provider>
     </entry>

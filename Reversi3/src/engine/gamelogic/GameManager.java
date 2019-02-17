@@ -1,5 +1,6 @@
 package engine.gamelogic;
 
+import engine.User;
 import engine.filesutils.XmlUtils;
 import engine.gamesettings.GameDescriptor;
 import engine.interfaces.GameModeInterface;
@@ -20,6 +21,7 @@ public class GameManager implements Serializable {
     private int numOfPlayers;
     private Board gameBoard;
     private String gameName;
+    private int gameID;
     private String nameOfPlayerWhoCreatedTheGame;
     private int numOfSignedPlayers;
     private Player[] players;
@@ -34,6 +36,15 @@ public class GameManager implements Serializable {
     List<String> colorsName = new ArrayList<>();
     private boolean isReplayMode;
     private int totalNumOfTurnsDisplay;
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+
     public String getNameOfPlayerWhoCreatedTheGame() {
         return nameOfPlayerWhoCreatedTheGame;
     }
@@ -41,13 +52,23 @@ public class GameManager implements Serializable {
     public void setNameOfPlayerWhoCreatedTheGame(String nameOfPlayerWhoCreatedTheGame) {
         this.nameOfPlayerWhoCreatedTheGame = nameOfPlayerWhoCreatedTheGame;
     }
+
     public int getTotalNumOfTurnsDisplay() {
         return totalNumOfTurnsDisplay;
+    }
+
+    public boolean isWaitingForPlayers() {
+        boolean res = false;
+        if (numOfPlayers > numOfSignedPlayers) {
+            res = true;
+        }
+        return res;
     }
 
     public void setTotalNumOfTurnsDisplay(int totalNumOfTurnsDisplay) {
         this.totalNumOfTurnsDisplay = totalNumOfTurnsDisplay;
     }
+
     public int getNumOfSignedPlayers() {
         return numOfSignedPlayers;
     }
@@ -109,12 +130,14 @@ public class GameManager implements Serializable {
         colors.add(Color.BLACK);
         colors.add(Color.PINK);
     }
-private void setColorsName(){
+
+    private void setColorsName() {
         colorsName.add("Blue");
-    colorsName.add("Red");
-    colorsName.add("Black");
-    colorsName.add("Pink");
-}
+        colorsName.add("Red");
+        colorsName.add("Black");
+        colorsName.add("Pink");
+    }
+
     public void saveGame(String filePath) throws IOException {
         File file = new File(filePath);
         FileOutputStream fileOut = null;
@@ -193,7 +216,7 @@ private void setColorsName(){
     }
 
     public void loadGameSettingsFromXML(String xml) throws Exception {
-       // computerTurn = i_ComputerFunc;
+        // computerTurn = i_ComputerFunc;
         isActiveGame = false;
         xmlUtils = new XmlUtils();
         gameSettings = xmlUtils.getGameSettingsObjectFromFile(xml);
@@ -205,6 +228,7 @@ private void setColorsName(){
         gameBoard = new Board();
         gameBoard.initBoardHelper(gameSettings, players, gameModeLogic);
     }
+
     public int numOfHumanPlayers() {
         int result = 0;
         for (Player player : players) {
@@ -214,6 +238,7 @@ private void setColorsName(){
         }
         return result;
     }
+
     public void retirePlayerFromGame() {
         int currentPlayersTurnIndex = totalNumOfTurns % players.length;
         players[currentPlayersTurnIndex].setRetiredFromGame(true);
@@ -224,6 +249,7 @@ private void setColorsName(){
         }
         numOfPlayers -= 1;
     }
+
     public void setPlayers() throws Exception {
         setColors();
         setColorsName();
@@ -238,6 +264,20 @@ private void setColorsName(){
             players[i].setPlayerColor(colors.get(i));
             players[i].setPlayerColorName(colorsName.get(i));
         }
+    }
+
+    public boolean putUserInPlayer(User user) {
+        boolean res = false;
+        for (int i = 0; i < players.length && !res; i++) {
+            if (players[i].getPlayerName() == null) {
+                players[i].setPlayerName(user.getName());
+                user.setInGameNumber(gameID);
+                user.setPlayerID(i);
+                numOfSignedPlayers++;
+             res=true;
+            }
+        }
+        return res;
     }
 
     private void setGameLogic() {
@@ -324,7 +364,7 @@ private void setColorsName(){
             }
         } catch (Exception e) {
             e.printStackTrace();
-            possiblePoints =-1;
+            possiblePoints = -1;
         }
         return possiblePoints;
     }
@@ -334,7 +374,7 @@ private void setColorsName(){
         for (int currRow = 1; currRow < getGameBoard().getRows(); currRow++) {
             for (int currCol = 0; currCol < getGameBoard().getCols(); currCol++) {
                 possiblePoints = displayPossibleMovesScoreHelper(currRow, currCol, playerIndex);
-                System.out.println("Row: "+currRow+"; Col: "+currCol+"; possiblePoints: "+possiblePoints+";");
+                System.out.println("Row: " + currRow + "; Col: " + currCol + "; possiblePoints: " + possiblePoints + ";");
             }
         }
     }
@@ -398,7 +438,7 @@ private void setColorsName(){
             res = true;
             currMove = new Move(rowNewMove, colNewMove);
             gameBoard.getGameBoard()[rowNewMove][colNewMove] = players[playerIndex].getPlayerNum();
-            int pointsTurn = gameBoard.checkForSequence(rowNewMove, colNewMove, players[playerIndex].getPlayerNum(), currMove,true);
+            int pointsTurn = gameBoard.checkForSequence(rowNewMove, colNewMove, players[playerIndex].getPlayerNum(), currMove, true);
             players[playerIndex].setPointsAndCalculateAverage(pointsTurn);
             decreaseRivalsPoints(currMove);
             players[playerIndex].setNumOfMoves(players[playerIndex].getNumOfMoves() + 1);
@@ -413,13 +453,13 @@ private void setColorsName(){
     public void undoTurn(boolean shouldRemoveMove) throws Exception {
         if (totalNumOfTurns > 0) {
             setTotalNumOfTurns(totalNumOfTurns - 1);
-            totalNumOfTurnsDisplay-=1;
+            totalNumOfTurnsDisplay -= 1;
 
             int lastPlayedPlayerIndex = totalNumOfTurns % numOfPlayers;
             Move lastMove = null;
             if (shouldRemoveMove) {
                 lastMove = players[lastPlayedPlayerIndex].getPlayerMovesHistoryList().get(players[lastPlayedPlayerIndex].getPlayerMovesHistoryList().size() - 1);
-                totalNumOfTurnsToReplay-=1;
+                totalNumOfTurnsToReplay -= 1;
             } else {
                 lastMove = players[lastPlayedPlayerIndex].getPlayerMovesHistoryList().get(players[lastPlayedPlayerIndex].getNumOfCurrentMoveForReplay());
             }

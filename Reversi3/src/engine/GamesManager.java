@@ -1,6 +1,8 @@
 package engine;
 
 import engine.gamelogic.GameManager;
+import engine.gamelogic.Player;
+import engine.gamesettings.Players;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,10 +38,11 @@ public class GamesManager {
         }
         return res;
     }
-    public void addGame(String xml, String gameCreatorName) throws Exception {
+    public synchronized void addGame(String xml, String gameCreatorName) throws Exception {
         GameManager newGame = new GameManager();
         newGame.loadGameSettingsFromXML(xml);
-      if(isGameNameExists(newGame.getGameName())==false){
+        newGame.setGameID(numOfgames);
+      if(!isGameNameExists(newGame.getGameName())){
           gamesMap.put(numOfgames++,newGame);
           newGame.setNameOfPlayerWhoCreatedTheGame(gameCreatorName);
       }
@@ -48,6 +51,22 @@ public class GamesManager {
       }
     }
     public GameManager getGameByNumber(int i){
+
         return gamesMap.get(i);
+    }
+    public GameManager getGameByName(String userName){
+        GameManager res = null;
+        Player[] players;
+        for (GameManager value : gamesMap.values()) {
+            players = value.getPlayers();
+            for(Player currPlayer : players){
+                if(currPlayer.getPlayerName().equals(userName)){
+                    res= value;
+                    return res;
+                }
+            }
+
+        }
+        return res;
     }
 }

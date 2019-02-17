@@ -13,7 +13,7 @@ public class Player implements Serializable {
 
     private int playerNum;
     private Color playerColor;
-    private String playerName;
+    private String playerName = null;
     private int playerID;
     //private int numOfMoves;
    // private int points;

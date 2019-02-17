@@ -5,7 +5,7 @@ import java.util.*;
 public class UsersManager {
     private static UsersManager usersManagerInstance = null;
     private static int numOfUsers;
-    private final HashMap<String,Boolean> usersSet;
+    private final HashMap<String,User> usersSet;
 
     private UsersManager() {
 
@@ -21,7 +21,7 @@ public class UsersManager {
     }
 
     public synchronized void addUser(String username,Boolean isComputer) {
-        usersSet.put(username,isComputer);
+        usersSet.put(username,new User(username,isComputer));
     }
 
     public synchronized void removeUser(String username) {
@@ -33,15 +33,27 @@ public class UsersManager {
         return  res;
     }
 
-    public boolean isUserExists(String username) {
+    public boolean isUserExists(String userName) {
         Iterator it = usersSet.entrySet().iterator();
         boolean res = false;
         while (it.hasNext() && !res) {
             Map.Entry pair = (Map.Entry) it.next();
-            if(pair.getKey().toString().toLowerCase().equals(username.toLowerCase())){
+            if(pair.getKey().toString().toLowerCase().equals(userName.toLowerCase())){
                 res = true;
             }
         //    it.remove(); // avoids a ConcurrentModificationException
+        }
+        return res;
+    }
+    public User getUserByName(String userName){
+        Iterator it = usersSet.entrySet().iterator();
+        User res = null;
+        while (it.hasNext() && res == null) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if(pair.getKey().toString().toLowerCase().equals(userName.toLowerCase())){
+                res = (User) pair.getValue();
+            }
+            //    it.remove(); // avoids a ConcurrentModificationException
         }
         return res;
     }
