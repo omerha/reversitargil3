@@ -83,9 +83,9 @@ public class LoginServlet extends HttpServlet {
     private void checkIfLogged(HttpServletRequest req, Gson gson, PrintWriter out) {
         HttpSession curSession = req.getSession(false);
         String jsonStr = null;
-        User user = UsersManager.getInstance().getUserByName(SessionsUtils.getUsername(curSession) );
+        User user = UsersManager.getInstance().getUserByName(SessionsUtils.getUsername(curSession));
         if (curSession != null) {
-            jsonStr = "{\"userName\" : " + user.getName() + ", \"connected\": true"+",\"inGame\": "+user.getInGameNumber()+"}";
+            jsonStr = "{\"userName\" : " + user.getName() + ", \"connected\": true" + ",\"inGame\": " + user.getInGameNumber() + "}";
         } else {
             jsonStr = "{\"connected\":false  }";
         }

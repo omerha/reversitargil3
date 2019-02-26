@@ -70,18 +70,21 @@ public class LobbyServlet extends HttpServlet {
         UsersManager usersManager = UsersManager.getInstance();
         String jsonStr = null;
         JsonElement element; //Converts the json string to JsonElement without POJO
-        JsonObject jsonObj;
+        JsonObject jsonObj = null;
         String userName = (String) req.getSession(false).getAttribute("userName");
         User user =  usersManager.getUserByName(userName);
         if(currGameManager.putUserInPlayer(user)) {
-            out.println(gson.toJson(""));
+          jsonStr = "{\"isActiveGame\":false}";
+            if(currGameManager.isActiveGame()){
+                jsonStr = "{\"isActiveGame\":true,\"error\":\"\"}";
+            }
         }
         else{
             jsonStr = "{\"error\":\"The game is full\"}";
-            element = gson.fromJson(jsonStr, JsonElement.class); //Converts the json string to JsonElement without POJO
-            jsonObj = element.getAsJsonObject();
-            out.println((gson.toJson(jsonObj)));
-        }
 
+        }
+        element = gson.fromJson(jsonStr, JsonElement.class);
+        jsonObj = element.getAsJsonObject();
+        out.println((gson.toJson(jsonObj)));
     }
 }

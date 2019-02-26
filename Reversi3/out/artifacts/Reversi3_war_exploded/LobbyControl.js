@@ -136,7 +136,13 @@ function joinGameClicked(gameManager) {
         },
         success: function (json) {
             console.log("join game success");
-            window.location = "GameRoom.html";
+            if(json.error == ""){
+                window.location = "GameRoom.html";
+            }
+            else{
+                alert("The game is full! please pick another one");
+            }
+
         }
 
     })

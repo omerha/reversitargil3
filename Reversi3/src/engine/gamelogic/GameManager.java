@@ -57,13 +57,7 @@ public class GameManager implements Serializable {
         return totalNumOfTurnsDisplay;
     }
 
-    public boolean isWaitingForPlayers() {
-        boolean res = false;
-        if (numOfPlayers > numOfSignedPlayers) {
-            res = true;
-        }
-        return res;
-    }
+
 
     public void setTotalNumOfTurnsDisplay(int totalNumOfTurnsDisplay) {
         this.totalNumOfTurnsDisplay = totalNumOfTurnsDisplay;
@@ -71,12 +65,16 @@ public class GameManager implements Serializable {
 
     public int getNumOfSignedPlayers() {
         return numOfSignedPlayers;
+
     }
 
     public void setNumOfSignedPlayers(int numOfSignedPlayers) {
         this.numOfSignedPlayers = numOfSignedPlayers;
-    }
+        if (numOfPlayers == numOfSignedPlayers) {
+            isActiveGame = true;
+        }
 
+    }
     public String getGameName() {
         return gameName;
     }
@@ -273,7 +271,8 @@ public class GameManager implements Serializable {
                 players[i].setPlayerName(user.getName());
                 user.setInGameNumber(gameID);
                 user.setPlayerID(i);
-                numOfSignedPlayers++;
+
+                setNumOfSignedPlayers(numOfSignedPlayers+1);
              res=true;
             }
         }
