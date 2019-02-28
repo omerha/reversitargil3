@@ -67,7 +67,16 @@ public class GameManager implements Serializable {
         return numOfSignedPlayers;
 
     }
-
+    public int getPlayerIndexByName(String playerName){
+        int res = -1;
+        for(int i = 0; i <players.length;i++){
+            if(players[i].getPlayerName().equals(playerName)){
+                res = i;
+                break;
+            }
+        }
+        return res;
+    }
     public void setNumOfSignedPlayers(int numOfSignedPlayers) {
         this.numOfSignedPlayers = numOfSignedPlayers;
         if (numOfPlayers == numOfSignedPlayers) {
@@ -348,7 +357,7 @@ public class GameManager implements Serializable {
                             }
                         }
                     },
-                    1000
+                    3000
             );
         }
     }
@@ -436,8 +445,8 @@ public class GameManager implements Serializable {
         if (gameModeLogic.checkIfTurnIsOk(rowNewMove, colNewMove, getGameBoard())) {
             res = true;
             currMove = new Move(rowNewMove, colNewMove);
-            gameBoard.getGameBoard()[rowNewMove][colNewMove] = players[playerIndex].getPlayerNum();
-            int pointsTurn = gameBoard.checkForSequence(rowNewMove, colNewMove, players[playerIndex].getPlayerNum(), currMove, true);
+            gameBoard.getGameBoard()[rowNewMove][colNewMove] =playerIndex+1;
+            int pointsTurn = gameBoard.checkForSequence(rowNewMove, colNewMove, playerIndex+1, currMove, true);
             players[playerIndex].setPointsAndCalculateAverage(pointsTurn);
             decreaseRivalsPoints(currMove);
             players[playerIndex].setNumOfMoves(players[playerIndex].getNumOfMoves() + 1);

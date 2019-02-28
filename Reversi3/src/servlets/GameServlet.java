@@ -1,6 +1,8 @@
 package servlets;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import engine.GamesManager;
 import engine.User;
 import engine.UsersManager;
@@ -31,6 +33,14 @@ public class GameServlet extends HttpServlet {
         switch (action) {
             case "getGameManager":
                 getGameManager(request, out, gson);
+                break;
+            case "getPlayerIndex":
+                getPlayerIndex(request, out, gson);
+                break;
+            case "runHumanTurn":
+                runHumanTurn(request, out, gson);
+                break;
+
         }
         out.close();
     }
@@ -45,5 +55,40 @@ public class GameServlet extends HttpServlet {
             res = gamesManager.getGameByName(currUSer.getName());
         }
         out.println(gson.toJson(res));
+    }
+
+    private void getPlayerIndex(HttpServletRequest req, PrintWriter out, Gson gson) {
+        UsersManager userManager = UsersManager.getInstance();
+        User currUSer = userManager.getUserByName((String) req.getSession().getAttribute("userName"));
+        GameManager currGameManager = gamesManager.getGameByNumber(Integer.parseInt(req.getParameter("gameIndex")));
+        out.println(gson.toJson(currGameManager.getPlayerIndexByName(currUSer.getName())));
+    }
+
+    private void runHumanTurn(HttpServletRequest req, PrintWriter out, Gson gson) {
+        String jsonStr = "";
+        GameManager gameManager = gamesManager.getGameByName((String) req.getSession().getAttribute("userName"));
+        JsonObject jsonObj = new JsonObject();
+        try {
+            gameManager.checkIfTurnIsValidAndPerform(Integer.parseInt(req.getParameter("row")), Integer.parseInt(req.getParameter("col")),Integer.parseInt(req.getParameter("playerIndex")), true);
+            gameManager.setTotalNumOfTurns(gameManager.getTotalNumOfTurns() + 1);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+          jsonStr = e.getMessage();
+        }
+        jsonObj.addProperty("error",jsonStr);
+        jsonObj.addProperty("winner",checkForWinner(gameManager));
+        out.println(gson.toJson(jsonObj));
+
+    }
+
+    public int checkForWinner(GameManager gameManager) {
+        int res = -1;
+        if (gameManager.getGameBoard().isFullBoard()) {
+            //  quitActiveGame = true;
+            res = gameManager.getWinnerIndex();
+            gameManager.setReplayMode(true);
+        }
+        return res;
     }
 }

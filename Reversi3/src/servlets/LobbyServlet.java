@@ -74,7 +74,7 @@ public class LobbyServlet extends HttpServlet {
         String userName = (String) req.getSession(false).getAttribute("userName");
         User user =  usersManager.getUserByName(userName);
         if(currGameManager.putUserInPlayer(user)) {
-          jsonStr = "{\"isActiveGame\":false}";
+          jsonStr = "{\"isActiveGame\":false,\"error\":\"\"}";
             if(currGameManager.isActiveGame()){
                 jsonStr = "{\"isActiveGame\":true,\"error\":\"\"}";
             }

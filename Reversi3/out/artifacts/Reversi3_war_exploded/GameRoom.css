@@ -180,6 +180,15 @@ th {
     background: antiquewhite;
     box-shadow: -1px 0px 3px 1px;
 }
+.rightDiv {
+    vertical-align: top;
+    display: inline-block;
+    font-size: 24px;
+    margin-right: 1%;
+    border-radius: 14px;
+    background: antiquewhite;
+    box-shadow: -1px 0px 3px 1px;
+}
 
 .details > div > {
     margin-bottom: 2px;
