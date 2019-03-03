@@ -10,7 +10,13 @@
 <body>
 <div class="toolBar">
     <div class="toolbarContent">
-        <span class="leaveGame" onclick="onLeaveGameClick()">Leave Game</span>
+        <button class="accordion">Section 1</button>
+        <div class="panel">
+            <span class="leaveGame" onclick="onLeaveGameClick()">Leave Game</span>
+            <span class="beginnersModeButton" onclick="onBeginnerModeClick()">Beginner mode</span>
+            <span class="undoButton" onclick="onUndoGameClick()">Undo turn</span>
+        </div>
+
         <span class="userNameSpan">Hi, Ben</span>
         <span class="gameStatus">Game status: Waiting for players...</span>
         <span class="logoSpan">

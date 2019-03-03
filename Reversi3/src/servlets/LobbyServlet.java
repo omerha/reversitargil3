@@ -79,6 +79,9 @@ public class LobbyServlet extends HttpServlet {
                 jsonStr = "{\"isActiveGame\":true,\"error\":\"\"}";
             }
         }
+        else if(currGameManager.isActiveGame()){
+            jsonStr = "{\"error\":\"Cannot join to active game\"}";
+        }
         else{
             jsonStr = "{\"error\":\"The game is full\"}";
 

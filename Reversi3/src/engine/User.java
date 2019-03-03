@@ -4,7 +4,7 @@ public class User {
     private String name;
     private boolean isComputer;
     private int inGameNumber;
-    private int playerID;
+    private int playerSign;
 
     public User(String name, boolean isComputer) {
         this.name = name;
@@ -12,12 +12,12 @@ public class User {
         this.inGameNumber = -1;
     }
 
-    public int getPlayerID() {
-        return playerID;
+    public int getPlayerSign() {
+        return playerSign;
     }
 
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
+    public void setPlayerSign(int playerSign) {
+        this.playerSign = playerSign;
     }
 
     public String getName() {

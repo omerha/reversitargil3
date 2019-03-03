@@ -6,7 +6,6 @@ import engine.gamesettings.GameDescriptor;
 import engine.interfaces.GameModeInterface;
 import engine.interfaces.PlayTurnInterface;
 import javafx.util.Pair;
-import engine.gamelogic.Player;
 import javafx.scene.paint.Color;
 
 import java.io.*;
@@ -58,7 +57,6 @@ public class GameManager implements Serializable {
     }
 
 
-
     public void setTotalNumOfTurnsDisplay(int totalNumOfTurnsDisplay) {
         this.totalNumOfTurnsDisplay = totalNumOfTurnsDisplay;
     }
@@ -67,16 +65,18 @@ public class GameManager implements Serializable {
         return numOfSignedPlayers;
 
     }
-    public int getPlayerIndexByName(String playerName){
+
+    public int getPlayerIndexByName(String playerName) {
         int res = -1;
-        for(int i = 0; i <players.length;i++){
-            if(players[i].getPlayerName().equals(playerName)){
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].getPlayerName().equals(playerName)) {
                 res = i;
                 break;
             }
         }
         return res;
     }
+
     public void setNumOfSignedPlayers(int numOfSignedPlayers) {
         this.numOfSignedPlayers = numOfSignedPlayers;
         if (numOfPlayers == numOfSignedPlayers) {
@@ -84,6 +84,7 @@ public class GameManager implements Serializable {
         }
 
     }
+
     public String getGameName() {
         return gameName;
     }
@@ -246,7 +247,7 @@ public class GameManager implements Serializable {
         return result;
     }
 
-    public void retirePlayerFromGame() {
+    public void removePlayer() {
         int currentPlayersTurnIndex = totalNumOfTurns % players.length;
         players[currentPlayersTurnIndex].setRetiredFromGame(true);
         try {
@@ -254,7 +255,18 @@ public class GameManager implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        numOfPlayers -= 1;
+        numOfSignedPlayers -= 1;
+    }
+
+    public boolean retirePlayerFromGame() {
+        boolean res = false;
+        if (numOfHumanPlayers() > 1) {
+            removePlayer();
+            res = true;
+        } else {
+            //end game
+        }
+        return res;
     }
 
     public void setPlayers() throws Exception {
@@ -275,14 +287,17 @@ public class GameManager implements Serializable {
 
     public boolean putUserInPlayer(User user) {
         boolean res = false;
-        for (int i = 0; i < players.length && !res; i++) {
-            if (players[i].getPlayerName() == null) {
-                players[i].setPlayerName(user.getName());
-                user.setInGameNumber(gameID);
-                user.setPlayerID(i);
+        if (!isActiveGame) {
+            for (int i = 0; i < players.length && !res; i++) {
+                if (players[i].getPlayerName() == null) {
+                    players[i].setPlayerName(user.getName());
+                    players[i].setPlayerNum(i + 1);
+                    user.setInGameNumber(gameID);
+                    user.setPlayerSign(i + 1);
 
-                setNumOfSignedPlayers(numOfSignedPlayers+1);
-             res=true;
+                    setNumOfSignedPlayers(numOfSignedPlayers + 1);
+                    res = true;
+                }
             }
         }
         return res;
@@ -362,11 +377,11 @@ public class GameManager implements Serializable {
         }
     }
 
-    private int displayPossibleMovesScoreHelper(int rowMove, int colMove, int playerIndex) {
+    private int displayPossibleMovesScoreHelper(int rowMove, int colMove, int playerSign) {
         int possiblePoints = 0;
         try {
             if (gameModeLogic.checkIfTurnIsOk(rowMove, colMove, getGameBoard())) {
-                possiblePoints = gameBoard.checkForSequence(rowMove, colMove, playerIndex, new Move(), false);
+                possiblePoints = gameBoard.checkForSequence(rowMove, colMove, playerSign, new Move(), false);
             } else {
                 possiblePoints = -1;
             }
@@ -377,14 +392,15 @@ public class GameManager implements Serializable {
         return possiblePoints;
     }
 
-    public void displayPossibleMovesScore(int playerIndex) {
-        int possiblePoints = 0;
-        for (int currRow = 1; currRow < getGameBoard().getRows(); currRow++) {
-            for (int currCol = 0; currCol < getGameBoard().getCols(); currCol++) {
-                possiblePoints = displayPossibleMovesScoreHelper(currRow, currCol, playerIndex);
-                System.out.println("Row: " + currRow + "; Col: " + currCol + "; possiblePoints: " + possiblePoints + ";");
+    public int[][] displayPossibleMovesScore(int playerSign) {
+        int[][] possiblePointsMatrix = new int[gameBoard.getRows() + 1][gameBoard.getCols() + 1];
+        for (int currRow = 1; currRow <= getGameBoard().getRows(); currRow++) {
+            for (int currCol = 1; currCol <= getGameBoard().getCols(); currCol++) {
+                possiblePointsMatrix[currRow][currCol] = displayPossibleMovesScoreHelper(currRow, currCol, playerSign);
+                //   System.out.println("Row: " + currRow + "; Col: " + currCol + "; possiblePoints: " + possiblePoints + ";");
             }
         }
+        return possiblePointsMatrix;
     }
 
     public Player[] getPlayers() {
@@ -445,8 +461,8 @@ public class GameManager implements Serializable {
         if (gameModeLogic.checkIfTurnIsOk(rowNewMove, colNewMove, getGameBoard())) {
             res = true;
             currMove = new Move(rowNewMove, colNewMove);
-            gameBoard.getGameBoard()[rowNewMove][colNewMove] =playerIndex+1;
-            int pointsTurn = gameBoard.checkForSequence(rowNewMove, colNewMove, playerIndex+1, currMove, true);
+            gameBoard.getGameBoard()[rowNewMove][colNewMove] = playerIndex + 1;
+            int pointsTurn = gameBoard.checkForSequence(rowNewMove, colNewMove, playerIndex + 1, currMove, true);
             players[playerIndex].setPointsAndCalculateAverage(pointsTurn);
             decreaseRivalsPoints(currMove);
             players[playerIndex].setNumOfMoves(players[playerIndex].getNumOfMoves() + 1);

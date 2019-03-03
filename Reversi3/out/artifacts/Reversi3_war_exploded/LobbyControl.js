@@ -109,7 +109,7 @@ function displayGameStats(gameManager) {
     var uploaderName = $(document.createElement('td')).text(gameManager.nameOfPlayerWhoCreatedTheGame);
     var gameType = $(document.createElement('td')).text(gameManager.gameSettings.game.variant);
     var gameStatus = $(document.createElement('td')).text(gameManager.isActiveGame ? "Active" : "Inactive");
-    var numberOfSignedPlayers = $(document.createElement('td')).text(gameManager.numOfSignedPlayers + "/" + gameManager.numOfPlayers);
+    var numberOfSignedPlayers = $(document.createElement('td')).text(gameManager.numOfSignedPlayers + "/" + gameManager.players.length);
 
     tr.append(gamesName);
 
@@ -140,7 +140,7 @@ function joinGameClicked(gameManager) {
                 window.location = "GameRoom.html";
             }
             else{
-                alert("The game is full! please pick another one");
+                alert(json.error);
             }
 
         }

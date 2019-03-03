@@ -1,7 +1,6 @@
 package servlets;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import engine.GamesManager;
 import engine.User;
@@ -40,9 +39,35 @@ public class GameServlet extends HttpServlet {
             case "runHumanTurn":
                 runHumanTurn(request, out, gson);
                 break;
+            case "undoTurn":
+                undoTurn(request,out,gson);
+                break;
+            case "beginnerMode":
+                beginnerMode(request,out,gson);
+                break;
+            case "leaveGame":
+                leaveGame(request,out,gson);
+                break;
 
         }
         out.close();
+    }
+
+    private void leaveGame(HttpServletRequest req, PrintWriter out, Gson gson) {
+        UsersManager userManager = UsersManager.getInstance();
+        User currUSer = userManager.getUserByName((String) req.getSession().getAttribute("userName"));
+        JsonObject jsonObj = new JsonObject();
+        GameManager gameManager = gamesManager.getGameByNumber(currUSer.getInGameNumber());
+        if(gameManager.retirePlayerFromGame()){
+            jsonObj.addProperty("endGame",false);
+
+        }else{
+            jsonObj.addProperty("endGame",true);
+        }
+        currUSer.setInGameNumber(-1);
+
+
+        out.println(gson.toJson(jsonObj));
     }
 
     private void getGameManager(HttpServletRequest req, PrintWriter out, Gson gson) {
@@ -90,5 +115,39 @@ public class GameServlet extends HttpServlet {
             gameManager.setReplayMode(true);
         }
         return res;
+    }
+    private void undoTurn(HttpServletRequest req, PrintWriter out, Gson gson) {
+        String jsonStr = "";
+        GameManager gameManager = gamesManager.getGameByName((String) req.getSession().getAttribute("userName"));
+        JsonObject jsonObj = new JsonObject();
+
+        try {
+            gameManager.undoTurn(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonStr = e.getMessage();
+        }
+        jsonObj.addProperty("error",jsonStr);
+        out.println(gson.toJson(jsonObj));
+    }
+    private void beginnerMode(HttpServletRequest req, PrintWriter out, Gson gson) {
+        String jsonStr = "";
+        int [][] res = new int[0][];
+        UsersManager userManager = UsersManager.getInstance();
+        User currUSer = userManager.getUserByName((String) req.getSession().getAttribute("userName"));
+        GameManager gameManager = gamesManager.getGameByNumber(currUSer.getInGameNumber());
+        JsonObject jsonObj = new JsonObject();
+
+        try {
+            res = gameManager.displayPossibleMovesScore(currUSer.getPlayerSign());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonStr = e.getMessage();
+        }
+        jsonObj.addProperty("error",jsonStr);
+        jsonObj.addProperty("result",gson.toJson(res));
+        out.println(gson.toJson(jsonObj));
     }
 }
