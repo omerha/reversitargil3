@@ -498,7 +498,7 @@ public class GameManager implements Serializable {
     public int getWinnerIndex() {
         int maxPoints = players[0].getPoints();
         int currIndex = 0;
-        for (int i = 1; i < players.length; i++) {
+        for (int i = 0; i < players.length; i++) {
             if (players[i].getPoints() > maxPoints) {
                 maxPoints = players[i].getPoints();
                 currIndex = i;
@@ -519,5 +519,14 @@ public class GameManager implements Serializable {
 
     public void setTotalNumOfTurnsToReplay(int totalNumOfTurnsToReplay) {
         this.totalNumOfTurnsToReplay = totalNumOfTurnsToReplay;
+    }
+    public void endAndRestartGame() throws Exception {
+        setPlayers();
+        gameBoard.initBoardHelper(gameSettings,players,gameModeLogic);
+        this.numOfSignedPlayers = 0;
+        this.totalNumOfTurnsToReplay = 0;
+        this.totalNumOfTurns = 0;
+        this.isReplayMode=false;
+        this.isActiveGame = false;
     }
 }

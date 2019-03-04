@@ -48,9 +48,28 @@ public class GameServlet extends HttpServlet {
             case "leaveGame":
                 leaveGame(request,out,gson);
                 break;
+            case "checkForWinner":
+                checkForWinner(request,out,gson);
+                break;
+            default:
+                break;
 
         }
         out.close();
+    }
+
+    private void checkForWinner(HttpServletRequest req, PrintWriter out, Gson gson) {
+        JsonObject jsonObj = new JsonObject();
+        String jsonStr = "";
+        int winner;
+        GameManager gameManager = gamesManager.getGameByName((String) req.getSession().getAttribute("userName"));
+        if (gameManager.getGameBoard().isFullBoard()) {
+             winner = gameManager.getWinnerIndex();
+            gameManager.setReplayMode(true);
+            jsonStr = Integer.toString(winner);
+        }
+        jsonObj.addProperty("winner",jsonStr);
+        out.println(jsonObj);
     }
 
     private void leaveGame(HttpServletRequest req, PrintWriter out, Gson gson) {

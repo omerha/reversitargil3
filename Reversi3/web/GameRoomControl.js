@@ -5,6 +5,8 @@ var turnsInterval;
 var isComputer;
 var isBeginnerModeOn = false;
 var beginnerModeMatrix;
+var winner = -1;
+var winnerName;
 $(function () {
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -125,25 +127,63 @@ function checkWhosTurn(gameManager) {
     var currentPlayerIndex = gameManager.totalNumOfTurns % gameManager.numOfPlayers;
     var playerColor = gameManager.players[currentPlayerIndex].playerColorName;
     isMyTurn = currentPlayerIndex == playerIndex;
-    if (isMyTurn && label[0].style.backgroundColor == playerColor.toLowerCase()) {
-
+    checkForWinner();
+    if(winner!= -1){
+        endAndRestartGame();
     }
     else {
-        label.css("background-color", playerColor);
-        label.text("Its " + gameManager.players[currentPlayerIndex].playerName + " turn!");
-        if (isMyTurn) {
-                shouldBoardBeClickAble(true);
-                if(isBeginnerModeOn){
-                    beginnerModeHelper();
-                }
+        if (isMyTurn && label[0].style.backgroundColor == playerColor.toLowerCase()) {
+
         }
         else {
-            shouldBoardBeClickAble(false);
+            label.css("background-color", playerColor);
+            label.text("Its " + gameManager.players[currentPlayerIndex].playerName + " turn!");
+            if (isMyTurn) {
+                shouldBoardBeClickAble(true);
+                if (isBeginnerModeOn) {
+                    beginnerModeHelper();
+                }
+            }
+            else {
+                shouldBoardBeClickAble(false);
+            }
+            initGame(gameManager);
         }
-        initGame(gameManager);
     }
 }
-
+function endAndRestartGame(){
+    var messageToDisplay = winner==playerIndex?"You are":winnerName+" is";
+    messageToDisplay+="the winner!"
+    
+    $.ajax({
+        url:"GameServlet",
+        data:{action:"endGame"},
+        error:function(err){
+            console.log("Error: "+err);
+        },
+        success:function(res){
+            var parsedRes = JSON.parse(res);
+            if(parsedRes.winner){
+                winner = parsedRes.winner;
+            }
+        }
+    })
+}
+function checkForWinner(){
+    $.ajax({
+        url:"GameServlet",
+        data:{action:"checkForWinner"},
+        error:function(err){
+            console.log("Error: "+err);
+        },
+        success:function(res){
+            var parsedRes = JSON.parse(res);
+            if(parsedRes.winner){
+                winner = parsedRes.winner;
+            }
+        }
+    })
+}
 function setPlayerIndex(gameManager) {
 
     $.ajax({

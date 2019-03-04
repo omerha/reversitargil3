@@ -5,6 +5,7 @@ var turnsInterval;
 var isComputer;
 var isBeginnerModeOn = false;
 var beginnerModeMatrix;
+var winner = -1;
 $(function () {
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -125,6 +126,7 @@ function checkWhosTurn(gameManager) {
     var currentPlayerIndex = gameManager.totalNumOfTurns % gameManager.numOfPlayers;
     var playerColor = gameManager.players[currentPlayerIndex].playerColorName;
     isMyTurn = currentPlayerIndex == playerIndex;
+    checkForWinner();
     if (isMyTurn && label[0].style.backgroundColor == playerColor.toLowerCase()) {
 
     }
@@ -143,7 +145,20 @@ function checkWhosTurn(gameManager) {
         initGame(gameManager);
     }
 }
-
+function checkForWinner(){
+    $.ajax({
+        url:"GameServlet",
+        data:{action:"checkForWinner"},
+        error:function(err){
+            console.log("Error: "+err);
+        },
+        success:function(res){
+            if(res.winner){
+                winner = res.winner;
+            }
+        }
+    })
+}
 function setPlayerIndex(gameManager) {
 
     $.ajax({
@@ -160,7 +175,7 @@ function setPlayerIndex(gameManager) {
 
 function displayNumOfSignedPlayers(gameManager) {
     var numOfSignedPlayers = gameManager.numOfSignedPlayers;
-    var totalNumOfPlayers = gameManager.numOfPlayers;
+    var totalNumOfPlayers = gameManager.players.length;
     var playerUserName;
     $.ajax
     ({
