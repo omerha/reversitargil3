@@ -6,6 +6,7 @@ import engine.GamesManager;
 import engine.User;
 import engine.UsersManager;
 import engine.gamelogic.GameManager;
+import javafx.beans.property.StringProperty;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,8 +50,10 @@ public class GameServlet extends HttpServlet {
                 leaveGame(request,out,gson);
                 break;
             case "checkForWinner":
-                checkForWinner(request,out,gson);
+                checkForWinner(request,out);
                 break;
+            case "endGame":
+                endGame(request,out);
             default:
                 break;
 
@@ -58,17 +61,36 @@ public class GameServlet extends HttpServlet {
         out.close();
     }
 
-    private void checkForWinner(HttpServletRequest req, PrintWriter out, Gson gson) {
+    private void endGame(HttpServletRequest req, PrintWriter out) {
+        UsersManager userManager = UsersManager.getInstance();
+        User currUSer = userManager.getUserByName((String) req.getSession().getAttribute("userName"));
         JsonObject jsonObj = new JsonObject();
         String jsonStr = "";
-        int winner;
+        GameManager gameManager = gamesManager.getGameByNumber(currUSer.getInGameNumber());
+        userManager.removeUsersFromGame(gameManager.getPlayers());
+        try {
+            gameManager.endAndRestartGame();
+        } catch (Exception e) {
+            jsonStr = e.getMessage();
+        }
+        jsonObj.addProperty("error",jsonStr);
+        out.println(jsonObj);
+    }
+
+    private void checkForWinner(HttpServletRequest req, PrintWriter out) {
+        JsonObject jsonObj = new JsonObject();
+        int winnerIndex =-1;
         GameManager gameManager = gamesManager.getGameByName((String) req.getSession().getAttribute("userName"));
         if (gameManager.getGameBoard().isFullBoard()) {
-             winner = gameManager.getWinnerIndex();
+             winnerIndex = gameManager.getWinnerIndex();
             gameManager.setReplayMode(true);
-            jsonStr = Integer.toString(winner);
         }
-        jsonObj.addProperty("winner",jsonStr);
+        String winnerName = "";
+        jsonObj.addProperty("winnerIndex",winnerIndex);
+        if(winnerIndex!=-1){
+            winnerName = gameManager.getPlayers()[winnerIndex].getPlayerName();
+        }
+        jsonObj.addProperty("winnerName",winnerName);
         out.println(jsonObj);
     }
 
@@ -77,11 +99,15 @@ public class GameServlet extends HttpServlet {
         User currUSer = userManager.getUserByName((String) req.getSession().getAttribute("userName"));
         JsonObject jsonObj = new JsonObject();
         GameManager gameManager = gamesManager.getGameByNumber(currUSer.getInGameNumber());
-        if(gameManager.retirePlayerFromGame()){
-            jsonObj.addProperty("endGame",false);
+        try {
+            if(gameManager.retirePlayerFromGame()){
+                jsonObj.addProperty("endGame",false);
 
-        }else{
-            jsonObj.addProperty("endGame",true);
+            }else{
+                jsonObj.addProperty("endGame",true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         currUSer.setInGameNumber(-1);
 
@@ -121,20 +147,11 @@ public class GameServlet extends HttpServlet {
           jsonStr = e.getMessage();
         }
         jsonObj.addProperty("error",jsonStr);
-        jsonObj.addProperty("winner",checkForWinner(gameManager));
+
         out.println(gson.toJson(jsonObj));
 
     }
 
-    public int checkForWinner(GameManager gameManager) {
-        int res = -1;
-        if (gameManager.getGameBoard().isFullBoard()) {
-            //  quitActiveGame = true;
-            res = gameManager.getWinnerIndex();
-            gameManager.setReplayMode(true);
-        }
-        return res;
-    }
     private void undoTurn(HttpServletRequest req, PrintWriter out, Gson gson) {
         String jsonStr = "";
         GameManager gameManager = gamesManager.getGameByName((String) req.getSession().getAttribute("userName"));

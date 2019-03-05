@@ -1,6 +1,5 @@
 $(function () {
-    setInterval(displayLoggedInUsers, 2000);
-    setInterval(displayAllGames, 2000);
+    checkIfUserLoggedIn();
 });
 
 function displayLoggedInUsers() {
@@ -30,6 +29,35 @@ function displayLoggedInUsers() {
             }
         }
     );
+}
+
+function checkIfUserLoggedIn() {
+    $.ajax
+    ({
+        url: 'LoginServlet',
+        data: {
+            action: "checkIfLogged"
+        },
+        error: function () {
+            console.error("Failed to submit");
+            console.log("fail");
+        },
+        success: function (json) {
+            if (json.connected) {
+                if (json.inGameNumber == -1) {
+                    setInterval(displayLoggedInUsers, 2000);
+                    setInterval(displayAllGames, 2000);
+                }
+                else {
+                    window.location = "GameRoom.html";
+                }
+            }
+            else {
+                window.location = "index.html";
+
+            }
+        }
+    });
 }
 
 function displayAllGames() {
@@ -136,10 +164,10 @@ function joinGameClicked(gameManager) {
         },
         success: function (json) {
             console.log("join game success");
-            if(json.error == ""){
+            if (json.error == "") {
                 window.location = "GameRoom.html";
             }
-            else{
+            else {
                 alert(json.error);
             }
 

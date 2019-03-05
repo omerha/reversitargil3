@@ -1,5 +1,7 @@
 package engine;
 
+import engine.gamelogic.Player;
+
 import java.util.*;
 
 public class UsersManager {
@@ -19,7 +21,13 @@ public class UsersManager {
         }
         return usersManagerInstance;
     }
-
+    public synchronized  void removeUsersFromGame(Player[] players){
+            User tempUser = null;
+        for (Player player : players) {
+            tempUser = getUserByName(player.getPlayerName());
+            tempUser.setInGameNumber(-1);
+        }
+    }
     public synchronized void addUser(String username,Boolean isComputer) {
         usersSet.put(username,new User(username,isComputer));
     }
@@ -41,7 +49,6 @@ public class UsersManager {
             if(pair.getKey().toString().toLowerCase().equals(userName.toLowerCase())){
                 res = true;
             }
-        //    it.remove(); // avoids a ConcurrentModificationException
         }
         return res;
     }

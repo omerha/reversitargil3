@@ -8,11 +8,12 @@ var beginnerModeMatrix;
 var winner = -1;
 var winnerName;
 $(function () {
+    checkIfUserLoggedIn();
     var acc = document.getElementsByClassName("accordion");
     var i;
 
     for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
+        acc[i].addEventListener("click", function () {
             /* Toggle between adding and removing the "active" class,
             to highlight the button that controls the panel */
             this.classList.toggle("active");
@@ -26,12 +27,38 @@ $(function () {
             }
         });
     }
-    var initBoardInterval = setInterval(function () {
-        initBoardHelper(initBoardInterval);
-    }, timeInterval);
+
 
 });
+function checkIfUserLoggedIn() {
+    $.ajax
+    ({
+        url: 'LoginServlet',
+        data: {
+            action: "checkIfLogged"
+        },
+        error: function () {
+            console.error("Failed to submit");
+            console.log("fail");
+        },
+        success: function(json){
+            if(json.connected){
+                if(json.inGameNumber==-1) {
+                    window.location = "Lobby.html";
+                }
+                else{
+                    var initBoardInterval = setInterval(function () {
+                        initBoardHelper(initBoardInterval);
+                    }, timeInterval);
+                }
+            }
+            else{
+                window.location = "index.html";
 
+            }
+        }
+    });
+}
 function initBoardHelper(intervalId) {
     $.ajax({
         url: "GameServlet",
@@ -46,144 +73,166 @@ function initBoardHelper(intervalId) {
                 clearInterval(intervalId);
                 turnsInterval = setInterval(function () {
                     getGameManager(checkWhosTurn);
-                }, timeInterval);
+                }, 1300);
             }
             displayNumOfSignedPlayers(parsedGameManager);
         }
     })
 }
-function onBeginnerModeClick(){
-    if(isBeginnerModeOn){
+
+function onBeginnerModeClick() {
+    if (isBeginnerModeOn) {
         isBeginnerModeOn = false;
         beginnerModeMatrix = null;
         alert("Beginner mode turned off");
-    }else{
+    } else {
         isBeginnerModeOn = true;
         alert("Beginner mode is on!");
 
         beginnerModeHelper();
     }
 }
-function beginnerModeHelper(){
+
+function beginnerModeHelper() {
     $.ajax({
-        url:"GameServlet",
-        data:{action:"beginnerMode"},
-        error:function(err){
+        url: "GameServlet",
+        data: {action: "beginnerMode"},
+        error: function (err) {
             console.log("Error:" + err);
         },
-        success:function(res){
+        success: function (res) {
             var parsedRes = JSON.parse(res);
-            if(parsedRes.error !=""){
+            if (parsedRes.error != "") {
                 alert(parsedRes.error);
                 //shouldBoardBeClickAble(true);
 
-            }else {
-                    beginnerModeMatrix = JSON.parse(parsedRes.result);
-                }
-                getGameManager(initGame);
+            } else {
+                beginnerModeMatrix = JSON.parse(parsedRes.result);
             }
+            getGameManager(initGame);
+        }
     })
 }
-function onLeaveGameClick(){
+
+function onLeaveGameClick() {
     $.ajax({
-        url:"GameServlet",
-        data:{action:"leaveGame"},
-        error:function(err){
+        url: "GameServlet",
+        data: {action: "leaveGame"},
+        error: function (err) {
             console.log("Error: " + err);
         },
-        success:function(res){
+        success: function (res) {
             var resParsed = JSON.parse(res);
-            if(resParsed.endGame){
-
+            if (resParsed.endGame) {
+                winner = -2;
             }
-            else{
 
-            }
             window.location = "Lobby.html";
         }
     })
 }
-function onUndoGameClick(){
+
+function onUndoGameClick() {
     $.ajax({
-        url:"GameServlet",
-        data:{action:"undoTurn"},
-        error:function(err){
+        url: "GameServlet",
+        data: {action: "undoTurn"},
+        error: function (err) {
             console.log("Error:" + err);
         },
-        success:function(res){
+        success: function (res) {
             var parsedRes = JSON.parse(res);
-            if(parsedRes.error !=""){
+            if (parsedRes.error != "") {
                 alert(parsedRes.error);
                 //shouldBoardBeClickAble(true);
 
-            }else {
+            } else {
                 getGameManager(initGame);
             }
         }
     })
 }
+
 function checkWhosTurn(gameManager) {
     var label = $(".playerCurrentTurn");
     var currentPlayerIndex = gameManager.totalNumOfTurns % gameManager.numOfPlayers;
     var playerColor = gameManager.players[currentPlayerIndex].playerColorName;
     isMyTurn = currentPlayerIndex == playerIndex;
     checkForWinner();
-    if(winner!= -1){
-        endAndRestartGame();
+
+    if (isMyTurn && label[0].style.backgroundColor == playerColor.toLowerCase()) {
+
     }
     else {
-        if (isMyTurn && label[0].style.backgroundColor == playerColor.toLowerCase()) {
-
+        label.css("background-color", playerColor);
+        label.text("Its " + gameManager.players[currentPlayerIndex].playerName + " turn!");
+        if (isMyTurn) {
+            shouldBoardBeClickAble(true);
+            if (isBeginnerModeOn) {
+                beginnerModeHelper();
+            }
         }
         else {
-            label.css("background-color", playerColor);
-            label.text("Its " + gameManager.players[currentPlayerIndex].playerName + " turn!");
-            if (isMyTurn) {
-                shouldBoardBeClickAble(true);
-                if (isBeginnerModeOn) {
-                    beginnerModeHelper();
-                }
-            }
-            else {
-                shouldBoardBeClickAble(false);
-            }
-            initGame(gameManager);
+            shouldBoardBeClickAble(false);
         }
+        initGame(gameManager);
     }
+
 }
-function endAndRestartGame(){
-    var messageToDisplay = winner==playerIndex?"You are":winnerName+" is";
-    messageToDisplay+="the winner!"
-    
+
+function endAndRestartGame() {
+    var messageToDisplay;
+    if (winner != -1) {
+        messageToDisplay = winner == playerIndex ? "You are" : winnerName + " is";
+        messageToDisplay += "the winner!"
+    }
+    else {
+        messageToDisplay = "No humans players left, the game has ended";
+    }
+    alert(messageToDisplay);
+    playerIndex = -1;
+    isMyTurn = false;
+
+
+    isComputer = null;
+    isBeginnerModeOn = false;
+    beginnerModeMatrix = null;
+    winner = -1;
+    winnerName = null;
+    clearInterval(turnsInterval);
     $.ajax({
-        url:"GameServlet",
-        data:{action:"endGame"},
-        error:function(err){
-            console.log("Error: "+err);
+        url: "GameServlet",
+        data: {action: "endGame"},
+        error: function (err) {
+            console.log("Error: " + err);
         },
-        success:function(res){
+        success: function (res) {
             var parsedRes = JSON.parse(res);
-            if(parsedRes.winner){
+            console.log(parsedRes.error);
+            window.location = "Lobby.html";
+
+        }
+    })
+}
+
+function checkForWinner() {
+    $.ajax({
+        url: "GameServlet",
+        data: {action: "checkForWinner"},
+        error: function (err) {
+            console.log("Error: " + err);
+        },
+        success: function (res) {
+            var parsedRes = JSON.parse(res);
+            if (parsedRes.winnerIndex != -1) {
                 winner = parsedRes.winner;
+                winnerName = parsedRes.winnerName;
+                endAndRestartGame();
+
             }
         }
     })
 }
-function checkForWinner(){
-    $.ajax({
-        url:"GameServlet",
-        data:{action:"checkForWinner"},
-        error:function(err){
-            console.log("Error: "+err);
-        },
-        success:function(res){
-            var parsedRes = JSON.parse(res);
-            if(parsedRes.winner){
-                winner = parsedRes.winner;
-            }
-        }
-    })
-}
+
 function setPlayerIndex(gameManager) {
 
     $.ajax({
@@ -249,8 +298,8 @@ function getGameManager(functionCallBack) {
 }
 
 function fillPlayersTable(gameManager) {
-   var playersTable =  $(".playersTable tbody");
-   playersTable.empty();
+    var playersTable = $(".playersTable tbody");
+    playersTable.empty();
     var players = gameManager.players;
     players.forEach(function (player) {
         if (player.playerName) {
@@ -263,7 +312,7 @@ function addPlayerToBoard(player) {
     var playersTable = $(".playersTable tbody");
     var tr = $(document.createElement("tr"));
     var playerName = $(document.createElement("td")).text(player.playerName);
-    var playerColor = $(document.createElement("td")).css("background-color" ,player.playerColorName);
+    var playerColor = $(document.createElement("td")).css("background-color", player.playerColorName);
     var playerComputer = $(document.createElement("td")).text(player.isComputer ? "Yes" : "No");
     var playerNumOfMoves = $(document.createElement("td")).text(player.numOfMoves.value);
     var playerPoints = $(document.createElement("td")).text(player.points.value);
@@ -291,18 +340,18 @@ function printBoard(gameManager) {
         for (var j = 1; j <= numOfCols; j++) {
             var squareDiv = $(document.createElement("div"));
             squareDiv.addClass("square");
-            squareDiv.attr("row", i );
-            squareDiv.attr("col", j );
+            squareDiv.attr("row", i);
+            squareDiv.attr("col", j);
             squareDiv.click(clickedOnGameBoard);
-            if(isBeginnerModeOn && isMyTurn){
+            if (isBeginnerModeOn && isMyTurn) {
                 squareDiv.text(beginnerModeMatrix[i][j].toString());
             }
-            switch (gameBoard[i ][j ]) {
+            switch (gameBoard[i][j]) {
                 case 1:
                     squareDiv.css({"background": gameManager.players[0].playerColorName});
                     break;
                 case 2:
-                    squareDiv.css({"background":gameManager.players[1].playerColorName});
+                    squareDiv.css({"background": gameManager.players[1].playerColorName});
                     break;
                 case 3:
                     squareDiv.css({"background": gameManager.players[2].playerColorName});
@@ -324,24 +373,24 @@ function clickedOnGameBoard(event) {
     var row = event.target.getAttribute("row");
     var col = event.target.getAttribute("col");
     $.ajax({
-       url:"GameServlet",
-       data:{action:"runHumanTurn",playerIndex:playerIndex,row:row,col:col},
-       error:function(err){
-           console.log(err);
-    },
-        success:function(res){
-           var parsedRes = JSON.parse(res);
-           if(parsedRes.error !=""){
-               alert(parsedRes.error);
-               shouldBoardBeClickAble(true);
+        url: "GameServlet",
+        data: {action: "runHumanTurn", playerIndex: playerIndex, row: row, col: col},
+        error: function (err) {
+            console.log(err);
+        },
+        success: function (res) {
+            var parsedRes = JSON.parse(res);
+            if (parsedRes.error != "") {
+                alert(parsedRes.error);
+                shouldBoardBeClickAble(true);
 
-           }
-           else if(parsedRes.winner!=-1){
+            }
+            else if (parsedRes.winner != -1) {
 
-           }
-           else {
-               getGameManager(initGame);
-           }
+            }
+            else {
+                getGameManager(initGame);
+            }
         }
     });
 }

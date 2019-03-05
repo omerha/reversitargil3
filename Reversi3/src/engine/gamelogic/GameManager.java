@@ -258,13 +258,13 @@ public class GameManager implements Serializable {
         numOfSignedPlayers -= 1;
     }
 
-    public boolean retirePlayerFromGame() {
+    public boolean retirePlayerFromGame() throws Exception {
         boolean res = false;
         if (numOfHumanPlayers() > 1) {
             removePlayer();
             res = true;
         } else {
-            //end game
+          endAndRestartGame();
         }
         return res;
     }
