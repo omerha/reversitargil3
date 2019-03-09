@@ -43,6 +43,7 @@ function checkIfUserLoggedIn() {
             console.log("fail");
         },
         success: function (json) {
+            $(".userNameSpan").text("Hi "+json.userName+", please choose a game to play if available, else upload a game");
             if (json.connected) {
                 if (json.inGameNumber == -1) {
                     setInterval(displayLoggedInUsers, 2000);
@@ -81,16 +82,24 @@ function displayAllGames() {
 }
 
 function displayBoardInPopup(gameManager) {
-    var popupWindow = $(".dialogDiv")[0];
-    popupWindow.style.display = "table";
-    var joinGameButton = $(".dialogButtonJoin");
-    var createButtonJoinGame = $(document.createElement("button")).text("Join game").click(function () {
-        joinGameClicked(gameManager);
-    });
-
-    joinGameButton.append(createButtonJoinGame);
-    printBoard(gameManager.gameBoard.rows, gameManager.gameBoard.cols, gameManager.gameBoard.gameBoard);
-
+    if($(".dialogDiv")[0].style.display != "table") {
+        var popupWindow = $(".dialogDiv")[0];
+        popupWindow.style.display = "table";
+        var joinGameButton = $(".dialogButtonJoin").empty();
+        var registeredPlayerList = $(".registerPlayersList ").empty();
+        var createButtonJoinGame = $(document.createElement("button")).text("Join game").click(function () {
+            joinGameClicked(gameManager);
+        });
+        createButtonJoinGame.css({"verticalAlign":"bottom"});
+        gameManager.players.forEach(function(player){
+            if(player.playerName){
+        var newLi = $(document.createElement("li")).text(player.playerName);
+        registeredPlayerList.append(newLi);
+            }
+        })
+        joinGameButton.append(createButtonJoinGame);
+        printBoard(gameManager.gameBoard.rows, gameManager.gameBoard.cols, gameManager.gameBoard.gameBoard);
+    }
 }
 
 function removeGameDialog(window) {

@@ -91,6 +91,29 @@ body{
 .tdPlayerTable{
     border:1px black solid;
 }
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+}
 .square:hover {
    border:1px black dashed;
     cursor: pointer;
@@ -454,7 +477,22 @@ th {
     width: 35vw;
     height: 65vh;
 }
-
+.goBackToLobbyButton{
+    background: cadetblue;
+    display: inline-block;
+    margin-left: 20px;
+    border: 1px solid black;
+    width: 100px;
+    height: 35px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 2px 1px 7px 1px;
+}
+.goBackToLobbyButton:hover{
+    background: aliceblue;
+    border: 1px;
+}
 .replayDialog{
     background: #a55210;
     display: none;

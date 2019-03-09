@@ -5,7 +5,7 @@ var turnsInterval;
 var isComputer;
 var isBeginnerModeOn = false;
 var beginnerModeMatrix;
-var winner = -1;
+var winnerIndex = -1;
 var winnerName;
 $(function () {
     checkIfUserLoggedIn();
@@ -30,6 +30,7 @@ $(function () {
 
 
 });
+
 function checkIfUserLoggedIn() {
     $.ajax
     ({
@@ -41,24 +42,25 @@ function checkIfUserLoggedIn() {
             console.error("Failed to submit");
             console.log("fail");
         },
-        success: function(json){
-            if(json.connected){
-                if(json.inGameNumber==-1) {
+        success: function (json) {
+            if (json.connected) {
+                if (json.inGameNumber == -1) {
                     window.location = "Lobby.html";
                 }
-                else{
+                else {
                     var initBoardInterval = setInterval(function () {
                         initBoardHelper(initBoardInterval);
                     }, timeInterval);
                 }
             }
-            else{
+            else {
                 window.location = "index.html";
 
             }
         }
     });
 }
+
 function initBoardHelper(intervalId) {
     $.ajax({
         url: "GameServlet",
@@ -124,7 +126,7 @@ function onLeaveGameClick() {
         success: function (res) {
             var resParsed = JSON.parse(res);
             if (resParsed.endGame) {
-                winner = -2;
+                winnerIndex = -2;
             }
 
             window.location = "Lobby.html";
@@ -157,46 +159,47 @@ function checkWhosTurn(gameManager) {
     var currentPlayerIndex = gameManager.totalNumOfTurns % gameManager.numOfPlayers;
     var playerColor = gameManager.players[currentPlayerIndex].playerColorName;
     isMyTurn = currentPlayerIndex == playerIndex;
-    checkForWinner();
+    getGameManager(checkForWinner);
 
     if (isMyTurn && label[0].style.backgroundColor == playerColor.toLowerCase()) {
 
     }
     else {
         label.css("background-color", playerColor);
-        label.text("Its " + gameManager.players[currentPlayerIndex].playerName + " turn!");
+
         if (isMyTurn) {
             shouldBoardBeClickAble(true);
+            label.text("Its your turn!");
             if (isBeginnerModeOn) {
                 beginnerModeHelper();
             }
         }
         else {
             shouldBoardBeClickAble(false);
+            label.text("Its " + gameManager.players[currentPlayerIndex].playerName + " turn!");
         }
         initGame(gameManager);
     }
 
 }
 
+function removeDialog(event) {
+    event.target.parentElement.parentElement.style.display = "none";
+}
+function goBackToLobby(event){
+    event.target.parentElement.parentElement.style.display = "none";
+    endAndRestartGame();
+
+}
+
 function endAndRestartGame() {
-    var messageToDisplay;
-    if (winner != -1) {
-        messageToDisplay = winner == playerIndex ? "You are" : winnerName + " is";
-        messageToDisplay += "the winner!"
-    }
-    else {
-        messageToDisplay = "No humans players left, the game has ended";
-    }
-    alert(messageToDisplay);
+
     playerIndex = -1;
     isMyTurn = false;
-
-
     isComputer = null;
     isBeginnerModeOn = false;
     beginnerModeMatrix = null;
-    winner = -1;
+    winnerIndex = -1;
     winnerName = null;
     clearInterval(turnsInterval);
     $.ajax({
@@ -214,23 +217,41 @@ function endAndRestartGame() {
     })
 }
 
-function checkForWinner() {
-    $.ajax({
-        url: "GameServlet",
-        data: {action: "checkForWinner"},
-        error: function (err) {
-            console.log("Error: " + err);
-        },
-        success: function (res) {
-            var parsedRes = JSON.parse(res);
-            if (parsedRes.winnerIndex != -1) {
-                winner = parsedRes.winner;
-                winnerName = parsedRes.winnerName;
-                endAndRestartGame();
+function checkForWinner(gameManager) {
+    var winnerDialog = $(".winnerDialog");
+    var messageToDisplay;
+    if(gameManager.numOfSignedPlayers == gameManager.players.length) {
+        $.ajax({
+            url: "GameServlet",
+            data: {action: "checkForWinner"},
+            error: function (err) {
+                console.log("Error: " + err);
+            },
+            success: function (res) {
+                var parsedRes = JSON.parse(res);
+                if (parsedRes.winnerIndex != -1) {
+                    winnerIndex = parsedRes.winnerIndex;
+                    winnerName = parsedRes.winnerName;
+                    if (winnerIndex != -1) {
+                        messageToDisplay = winnerIndex == playerIndex ? "You are" : winnerName + " is";
+                        messageToDisplay += "the winner!"
+                    }
+                    else {
+                        messageToDisplay = "No humans players left, the game has ended";
+                    }
+                    $(".winnerDiv").text(messageToDisplay);
+                    winnerDialog[0].style.display = "block";
+                    // endAndRestartGame();
 
+                }
             }
-        }
-    })
+        });
+    }
+    else{
+        messageToDisplay = "There are no players left to play with.";
+        $(".winnerDiv").text(messageToDisplay);
+        winnerDialog[0].style.display = "block";
+    }
 }
 
 function setPlayerIndex(gameManager) {
@@ -265,7 +286,7 @@ function displayNumOfSignedPlayers(gameManager) {
             playerUserName = json.userName;
             isComputer = json.isComputer;
             $(".userNameSpan").text("Hi " + playerUserName);
-            $(".gameStatus").text("There " + numOfSignedPlayers + "\/" + totalNumOfPlayers + " connected players");
+            $(".gameStatus").text("There " + numOfSignedPlayers + "\/" + totalNumOfPlayers + " connected players" + (numOfSignedPlayers == totalNumOfPlayers ? "" : ". Waiting for more players"));
         }
     });
 }
@@ -385,7 +406,7 @@ function clickedOnGameBoard(event) {
                 shouldBoardBeClickAble(true);
 
             }
-            else if (parsedRes.winner != -1) {
+            else if (parsedRes.winnerIndex != -1) {
 
             }
             else {

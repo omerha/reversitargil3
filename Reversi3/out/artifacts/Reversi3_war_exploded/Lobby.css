@@ -148,6 +148,7 @@ th {
     right: 0;
     top: 0;
     cursor: pointer;
+    padding: 10px;
 }
 
 .rowDiv{
