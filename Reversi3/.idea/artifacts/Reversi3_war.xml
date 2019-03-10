@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Reversi3:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/Reversi3_war</output-path>
+    <root id="archive" name="Reversi3_war.war">
+      <element id="artifact" artifact-name="Reversi3:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/gson-2.8.5.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

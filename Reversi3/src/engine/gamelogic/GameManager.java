@@ -254,6 +254,7 @@ public class GameManager implements Serializable {
             this.setTotalNumOfTurns(totalNumOfTurns + 1);
         } catch (Exception e) {
             e.printStackTrace();
+            e.printStackTrace();
         }
         numOfSignedPlayers -= 1;
     }
@@ -294,7 +295,7 @@ public class GameManager implements Serializable {
                     players[i].setPlayerNum(i + 1);
                     user.setInGameNumber(gameID);
                     user.setPlayerSign(i + 1);
-
+                    players[i].setComputer(user.isComputer());
                     setNumOfSignedPlayers(numOfSignedPlayers + 1);
                     res = true;
                 }
@@ -359,22 +360,22 @@ public class GameManager implements Serializable {
                 retiredFromGame = false;
             }
         }
-        if (players[totalNumOfTurns % players.length].isComputer() && !isReplayMode) {
-
-            new java.util.Timer().schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            try {
-                                computerTurn.computerTurn();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                    3000
-            );
-        }
+//        if (players[totalNumOfTurns % players.length].isComputer() && !isReplayMode) {
+//
+//            new java.util.Timer().schedule(
+//                    new java.util.TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                computerTurn.computerTurn();
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    },
+//                    3000
+//            );
+//        }
     }
 
     private int displayPossibleMovesScoreHelper(int rowMove, int colMove, int playerSign) {

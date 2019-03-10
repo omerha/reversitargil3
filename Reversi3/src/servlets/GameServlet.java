@@ -54,11 +54,25 @@ public class GameServlet extends HttpServlet {
                 break;
             case "endGame":
                 endGame(request,out);
+                break;
+            case "playComputerTurn":
+                playComputerTurn(request,gson,out);
             default:
                 break;
 
         }
         out.close();
+    }
+
+    private void playComputerTurn(HttpServletRequest req,Gson gson, PrintWriter out) {
+        GameManager gameManager = gamesManager.getGameByName((String) req.getSession().getAttribute("userName"));
+        try {
+            gameManager.playComputerTurn();
+            gameManager.setTotalNumOfTurns(gameManager.getTotalNumOfTurns() + 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        out.println("");
     }
 
     private void endGame(HttpServletRequest req, PrintWriter out) {
@@ -67,11 +81,13 @@ public class GameServlet extends HttpServlet {
         JsonObject jsonObj = new JsonObject();
         String jsonStr = "";
         GameManager gameManager = gamesManager.getGameByNumber(currUSer.getInGameNumber());
-        userManager.removeUsersFromGame(gameManager.getPlayers());
-        try {
-            gameManager.endAndRestartGame();
-        } catch (Exception e) {
-            jsonStr = e.getMessage();
+        if(gameManager!=null) {
+            userManager.removeUsersFromGame(gameManager.getPlayers());
+            try {
+                gameManager.endAndRestartGame();
+            } catch (Exception e) {
+                jsonStr = e.getMessage();
+            }
         }
         jsonObj.addProperty("error",jsonStr);
         out.println(jsonObj);

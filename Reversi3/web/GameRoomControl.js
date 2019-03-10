@@ -168,25 +168,46 @@ function checkWhosTurn(gameManager) {
         label.css("background-color", playerColor);
 
         if (isMyTurn) {
-            shouldBoardBeClickAble(true);
             label.text("Its your turn!");
-            if (isBeginnerModeOn) {
-                beginnerModeHelper();
+            if (!isComputer) {
+                shouldBoardBeClickAble(true);
+                if (isBeginnerModeOn) {
+                    beginnerModeHelper();
+                }
             }
+            else {
+                setTimeout(function(){playComputerTurn(gameManager)},1500);
+            }
+
         }
         else {
             shouldBoardBeClickAble(false);
             label.text("Its " + gameManager.players[currentPlayerIndex].playerName + " turn!");
         }
-        initGame(gameManager);
-    }
 
+    }
+    initGame(gameManager);
+}
+
+function playComputerTurn(gameManager) {
+    $.ajax({
+        url: "GameServlet",
+        data: {action: "playComputerTurn"},
+        error: function (err) {
+            console.log("Error: " + err);
+        },
+        success: function (res) {
+            initGame(gameManager);
+
+        }
+    })
 }
 
 function removeDialog(event) {
     event.target.parentElement.parentElement.style.display = "none";
 }
-function goBackToLobby(event){
+
+function goBackToLobby(event) {
     event.target.parentElement.parentElement.style.display = "none";
     endAndRestartGame();
 
@@ -220,7 +241,7 @@ function endAndRestartGame() {
 function checkForWinner(gameManager) {
     var winnerDialog = $(".winnerDialog");
     var messageToDisplay;
-    if(gameManager.numOfSignedPlayers == gameManager.players.length) {
+    if (gameManager.numOfSignedPlayers == gameManager.players.length) {
         $.ajax({
             url: "GameServlet",
             data: {action: "checkForWinner"},
@@ -233,7 +254,7 @@ function checkForWinner(gameManager) {
                     winnerIndex = parsedRes.winnerIndex;
                     winnerName = parsedRes.winnerName;
                     if (winnerIndex != -1) {
-                        messageToDisplay = winnerIndex == playerIndex ? "You are" : winnerName + " is";
+                        messageToDisplay = winnerIndex == playerIndex ? "You are " : winnerName + " is";
                         messageToDisplay += "the winner!"
                     }
                     else {
@@ -247,7 +268,7 @@ function checkForWinner(gameManager) {
             }
         });
     }
-    else{
+    else {
         messageToDisplay = "There are no players left to play with.";
         $(".winnerDiv").text(messageToDisplay);
         winnerDialog[0].style.display = "block";
@@ -365,7 +386,7 @@ function printBoard(gameManager) {
             squareDiv.attr("col", j);
             squareDiv.click(clickedOnGameBoard);
             if (isBeginnerModeOn && isMyTurn) {
-                squareDiv.text(beginnerModeMatrix[i][j].toString());
+                squareDiv.text(beginnerModeMatrix[i][j] == -1?"N/A":beginnerModeMatrix[i][j].toString());
             }
             switch (gameBoard[i][j]) {
                 case 1:
