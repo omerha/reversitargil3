@@ -154,7 +154,7 @@ function checkWhosTurn(gameManager) {
 function endAndRestartGame(){
     var messageToDisplay = winner==playerIndex?"You are":winnerName+" is";
     messageToDisplay+="the winner!"
-    
+    //noway
     $.ajax({
         url:"GameServlet",
         data:{action:"endGame"},
