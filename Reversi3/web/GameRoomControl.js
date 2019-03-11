@@ -203,7 +203,7 @@ function playComputerTurn(gameManager) {
     })
 }
 
-
+//cool
 function removeDialog(event) {
     event.target.parentElement.parentElement.style.display = "none";
 }
