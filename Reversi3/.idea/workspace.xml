@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5176d1e5-60d3-4180-bcaf-db581d69bf1e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/web/GameRoomControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/GameRoomControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine/gamelogic/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/gamelogic/GameManager.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,7 +46,7 @@
               <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/GameManager.java">
                 <provider selected="true" editor-type-id="text-editor">
                   <state relative-caret-position="68">
-                    <caret line="480" column="18" selection-start-line="480" selection-start-column="18" selection-end-line="480" selection-end-column="18" />
+                    <caret line="480" column="12" selection-start-line="480" selection-start-column="12" selection-end-line="480" selection-end-column="12" />
                   </state>
                 </provider>
               </entry>
@@ -250,8 +250,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/web/GameRoomControl.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="153">
-                  <caret line="156" column="4" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="4" />
+                <state relative-caret-position="122">
+                  <caret line="156" selection-start-line="156" selection-end-line="156" />
                 </state>
               </provider>
             </entry>
@@ -423,8 +423,8 @@
         <option value="$PROJECT_DIR$/src/servlets/LobbyServlet.java" />
         <option value="$PROJECT_DIR$/web/LobbyControl.js" />
         <option value="$PROJECT_DIR$/src/servlets/GameServlet.java" />
-        <option value="$PROJECT_DIR$/src/engine/gamelogic/GameManager.java" />
         <option value="$PROJECT_DIR$/web/GameRoomControl.js" />
+        <option value="$PROJECT_DIR$/src/engine/gamelogic/GameManager.java" />
       </list>
     </option>
   </component>
@@ -632,12 +632,12 @@
       <workItem from="1551212164072" duration="7506000" />
       <workItem from="1551313784926" duration="17367000" />
       <workItem from="1551560343108" duration="14949000" />
-      <workItem from="1552301705336" duration="461000" />
+      <workItem from="1552301705336" duration="479000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134897000" />
+    <option name="totallyTimeSpent" value="134915000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -1096,17 +1096,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/GameManager.java">
+    <entry file="file://$PROJECT_DIR$/web/GameRoomControl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="480" column="18" selection-start-line="480" selection-start-column="18" selection-end-line="480" selection-end-column="18" />
+        <state relative-caret-position="1887">
+          <caret line="111" column="10" selection-start-line="111" selection-start-column="10" selection-end-line="111" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/GameRoomControl.js">
+    <entry file="file://$PROJECT_DIR$/src/engine/gamelogic/GameManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="156" column="4" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="4" />
+        <state relative-caret-position="68">
+          <caret line="480" column="12" selection-start-line="480" selection-start-column="12" selection-end-line="480" selection-end-column="12" />
         </state>
       </provider>
     </entry>

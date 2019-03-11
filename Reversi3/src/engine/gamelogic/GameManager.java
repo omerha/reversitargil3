@@ -478,7 +478,7 @@ public class GameManager implements Serializable {
         if (totalNumOfTurns > 0) {
             setTotalNumOfTurns(totalNumOfTurns - 1);
             totalNumOfTurnsDisplay -= 1;
-            //test
+
             int lastPlayedPlayerIndex = totalNumOfTurns % numOfPlayers;
             Move lastMove = null;
             if (shouldRemoveMove) {
